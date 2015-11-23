@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour {
+public class Timer : MonoBehaviour
+{
     private Text timeTF;
     public bool isZero = false;
 
@@ -26,5 +27,10 @@ public class Timer : MonoBehaviour {
     public bool getIsZero()
     {
         return isZero;
+    }
+
+    public int getTime()
+    {
+        return System.Int32.Parse(timeTF.text);
     }
 }

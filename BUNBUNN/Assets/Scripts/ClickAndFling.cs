@@ -25,6 +25,8 @@ public class ClickAndFling : MonoBehaviour
         currentObject.GetComponent<SpringJoint2D>().enableCollision = true;
         //distance from spring to object
         currentObject.GetComponent<SpringJoint2D>().distance = .00005f;
+        currentObject.GetComponent<SpringJoint2D>().frequency = 4;
+        currentObject.GetComponent<SpringJoint2D>().dampingRatio = 20000;
 
         spring = this.gameObject.GetComponent<SpringJoint2D>(); 
 
