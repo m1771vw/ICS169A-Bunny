@@ -10,7 +10,13 @@ public class GameManager : MonoBehaviour {
     private GameObject dataObject,timeObject;
     private LocalMultiplayerGameData localData;
     private Timer timer;
-    
+    public int spawnTime = 24;
+    public int spawnRound = 0;
+    public int spawnCap = 0;
+    private Dictionary<int, List<GameObject>> portalListSectioned;
+    public GameObject centerOfScreen;
+    public int speedOfObject = 10;
+
     /// <summary>
     /// Local data connects to the multiplayer data
     /// using that data the creation of the inital play space is made
@@ -22,6 +28,7 @@ public class GameManager : MonoBehaviour {
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
         timer = timeObject.GetComponent<Timer>();
+        portalListSectioned = new Dictionary<int, List<GameObject>>();
 
         localData.currentPlayerScene.Clear();
         localData.currentPlayerScene.TrimExcess();
@@ -47,6 +54,49 @@ public class GameManager : MonoBehaviour {
             int randomInt = Random.Range(0, 2);
             localData.currentPortalsContent.Add(localData.trashList[randomInt]);
         }
+        ///create a gated spawn
+        /// this takes in a time gate 0, 1st, 2nd, 3rd etc.
+        /// then a list of game objects to be spawned at that time
+        for (int i = 0; i < 12; i++)
+        {
+            List<GameObject> objectList = new List<GameObject>();
+            portalListSectioned.Add(i, objectList);
+        }
+
+        ///Shuffle the list of data for portals
+        /// this is to randomize what will come out at each spawn
+        /// interval 
+        int n = localData.currentPortalsContent.Count - 1;
+        while (n > 0)
+        {
+            int rng = Random.Range(0, n);
+            n--;
+            int k = rng;
+            GameObject value = localData.currentPortalsContent[k];
+            localData.currentPortalsContent[k] = localData.currentPortalsContent[n];
+            localData.currentPortalsContent[n] = value;
+        }
+
+        ///loading up the time gates with the proper objects
+        ///fills all the level 0 buckets, then 1, then 2 ect.
+        int j = 0;
+        int l = 0;
+        int count = localData.currentPortalsContent.Count;
+        spawnCap = count;
+        while (count != 0)
+        {
+            portalListSectioned[j].Add(localData.currentPortalsContent[l]);
+            l++;
+            if (j != 11)
+            {
+                j++;
+            }
+            else
+            {
+                j = 0;
+            }
+            count--;
+        }
 
         ///Change portal tags for collision detection in order to put the objects in the correct buckets
         if (localData.currentPlayer == 0)
@@ -54,8 +104,7 @@ public class GameManager : MonoBehaviour {
             topPortal.tag = "Player2";
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
-            leftPortal.tag = "Player5";
-           
+            leftPortal.tag = "Player5";         
         }
         else if(localData.currentPlayer == 1)
         {
@@ -99,11 +148,58 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         if (timer.getTime() == 0)
         {
-            localData.nextPlayer();
-            Application.LoadLevel("Calibration");
+            if (localData.currentRound == 2 && localData.currentPlayer == 4)
+            {
+                Application.LoadLevel("EndLocalGameScreen");
+            }
+            else
+            {
+                portalListSectioned.Clear();
+                localData.nextPlayer();
+                Application.LoadLevel("Calibration");
+                Destroy(this.gameObject);
+            }
         }
+        
+        if (timer.getTime() == spawnTime && spawnRound < spawnCap && spawnRound <= 11)
+        {
+            for (int i = 0; i < portalListSectioned[spawnRound].Count; i++)
+            {
+                if (portalListSectioned[spawnRound][i].tag == "trash")
+                {
+                    localData.playerData[localData.currentPlayer].score -= localData.trashScoreWorth;
+                }
+                else
+                {
+                    localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
+                }
 
+                int portalNumber = Random.Range(0, 3);
+                if(portalNumber == 0)
+                {
+                    Debug.Log("firing");
+                    GameObject fireball = Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("TopSpawn").transform.position, Quaternion.identity) as GameObject;
+                    fireball.GetComponent<Rigidbody2D>().AddForce(centerOfScreen.transform.position * speedOfObject, ForceMode2D.Impulse);
+                }
+                else if(portalNumber == 1)
+                {
+                    Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("LeftSpawn").transform.position, Quaternion.identity);
+                }
+                else if (portalNumber == 2)
+                {
+                    Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("RightSpawn").transform.position, Quaternion.identity);
+                }
+                else if (portalNumber == 3)
+                {
+                    Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("BotSpawn").transform.position, Quaternion.identity);
+                }
+            }        
+            spawnTime -= 2;
+            ++spawnRound;
+        }
+        
 	}
 }

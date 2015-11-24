@@ -9,16 +9,14 @@ public class PortalPathing : MonoBehaviour
     public float percentsPerSecond = 0.10f; // %2 of the path moved per second
     public float currentPathPercent = 1.0f; //min 0, max 1
     public bool inReverse = false;
-    Vector3 center;
+    public Vector3 center;
+    public Transform target;
 
     /// <summary>
     /// set current array we are going to flip back and forth from the reverse array to the normal path array so the object patrols
     /// </summary>
     void Awake()
     {
-        center.x = 0;
-        center.y = 0;
-        center.z = 0;
         currentWaypointArray = waypointArray;
     }
 
@@ -39,8 +37,8 @@ public class PortalPathing : MonoBehaviour
             inReverse = false;
             currentWaypointArray = waypointArray;
         }
-
-        //point objects at the center of the screen
+        //transform.LookAt(target);
+        ///point objects at the center of the screen
         Vector3 dir = center - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

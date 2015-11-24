@@ -11,7 +11,10 @@ public class LocalMultiplayerGameData : MonoBehaviour {
     public int currentPlayer = 0;
     public int currentRound = 1;
     public int topScore;
+    public int topPlayer;
     public static LocalMultiplayerGameData Instance;
+    public int trashScoreWorth = 30;
+    public int carrotScoreWorth;
 
     /// <summary>
     /// total list with ALL objects for the game
