@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CreateGameData : MonoBehaviour {
+public class CreateGameData : MonoBehaviour
+{
 
     public GameObject gameData;
     // Use this for initialization
@@ -14,7 +15,8 @@ public class CreateGameData : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-	
-	}
+    void Update()
+    {
+
+    }
 }

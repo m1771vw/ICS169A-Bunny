@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClickAndDrag : MonoBehaviour {
+public class ClickAndDrag : MonoBehaviour
+{
     private Vector2 screenPoint;
     private Vector2 offset;
     // Use this for initialization
-    void Start () {
-	
-	}
+    void Start()
+    {
+
+    }
     void OnMouseDown()
     {
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -23,7 +25,8 @@ public class ClickAndDrag : MonoBehaviour {
         transform.position = cursorPosition;
     }
     // Update is called once per frame
-    void Update () {
-	
-	}
+    void Update()
+    {
+
+    }
 }

@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class LocalMultiplayerGameData : MonoBehaviour {
+public class LocalMultiplayerGameData : MonoBehaviour
+{
 
     /// <summary>
     /// Setting base data
@@ -39,7 +40,7 @@ public class LocalMultiplayerGameData : MonoBehaviour {
     /// this is used to load the center of the game around the body
     /// </summary>
     public List<GameObject> currentPlayerScene = new List<GameObject>();
-    
+
     /// <summary>
     /// Will be loaded with the ratios of carrots and trash durign level loads
     /// this list contains ALL of the objects for ALL of the portals 
@@ -53,9 +54,9 @@ public class LocalMultiplayerGameData : MonoBehaviour {
     /// 7 trash and 3 carrots loaded in scene
     /// 6 trash in the portals and 2 trash in the scene
     void Start()
-    {   
-        for(int i = 0; i < 5; i++)
-        { 
+    {
+        for (int i = 0; i < 5; i++)
+        {
             playerData[i].score = 300;
             playerData[i].carrotsInScene = 3;
             playerData[i].trashInScene = 7;
@@ -95,8 +96,9 @@ public class LocalMultiplayerGameData : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

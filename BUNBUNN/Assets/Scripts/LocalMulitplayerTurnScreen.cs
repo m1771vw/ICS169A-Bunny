@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-public class LocalMulitplayerTurnScreen : MonoBehaviour {
+public class LocalMulitplayerTurnScreen : MonoBehaviour
+{
     public Text topScore, topPlayer, playerTurn;
     private GameObject dataObject;
     private LocalMultiplayerGameData localData;
@@ -24,18 +25,15 @@ public class LocalMulitplayerTurnScreen : MonoBehaviour {
         }
         /// need to kick to next screen do not remove
         localData.topScore = top;
-
-         
         /////////////////////////
         topScore.text = "Top Score " + localData.topScore.ToString();
-
-        playerTurn.text = "Current Player Player " + localData.currentPlayer;
+        playerTurn.text = "Current Player: Player " + localData.currentPlayer;
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-	
-	}
+
+    }
 }

@@ -28,7 +28,7 @@ public class ClickAndFling : MonoBehaviour
         currentObject.GetComponent<SpringJoint2D>().frequency = 4;
         currentObject.GetComponent<SpringJoint2D>().dampingRatio = 20000;
 
-        spring = this.gameObject.GetComponent<SpringJoint2D>(); 
+        spring = this.gameObject.GetComponent<SpringJoint2D>();
 
         spring.connectedAnchor = gameObject.transform.position;
 
@@ -46,7 +46,7 @@ public class ClickAndFling : MonoBehaviour
         {
 
             Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);//getting cursor position
-        
+
             spring.connectedAnchor = cursorPosition;//the anchor get's cursor's position
 
 

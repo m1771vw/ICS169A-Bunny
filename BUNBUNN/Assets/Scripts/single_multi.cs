@@ -10,6 +10,7 @@ public class single_multi : MonoBehaviour
     public Button PlayMulti;
     public GameObject SinglePlayer;
     public GameObject Multi;
+    public GameObject Quit;
 
 
     void Start()
@@ -25,10 +26,11 @@ public class single_multi : MonoBehaviour
     {
         quitMenu.enabled = true;
         exitText.enabled = false;
-        //PlaySingle.enabled = false;
-        //PlayMulti.enabled = false;
+        PlaySingle.enabled = false;
+        PlayMulti.enabled = false;
         SinglePlayer.SetActive(false);
         Multi.SetActive(false);
+        Quit.SetActive(false);
     }
 
     public void NoPress()
@@ -39,6 +41,7 @@ public class single_multi : MonoBehaviour
         PlayMulti.enabled = true;
         SinglePlayer.SetActive(true);
         Multi.SetActive(true);
+        Quit.SetActive(true);
     }
     public void SinglePress()
     {

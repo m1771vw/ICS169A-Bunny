@@ -24,7 +24,10 @@ public class NextSceneOnClick : MonoBehaviour {
             Application.LoadLevel(scene);
         }
     }
-
+    public void Back()
+    {
+        Application.LoadLevel("single-multi");
+    }
     // Update is called once per frame
     void Update () {
 	

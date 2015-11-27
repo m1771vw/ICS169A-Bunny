@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControls : MonoBehaviour {
+public class PlayerControls : MonoBehaviour
+{
     public float speed = 4;
     float accelStartY;
     private GameObject dataObject;
@@ -20,9 +21,9 @@ public class PlayerControls : MonoBehaviour {
         float y = Input.acceleration.y - accelStartY;
 
         Vector2 direction = new Vector2(x, y);
-        
-        
-        if(direction.sqrMagnitude > 1)
+
+
+        if (direction.sqrMagnitude > 1)
         {
             direction.Normalize();
         }
@@ -41,7 +42,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void Move(Vector2 direction)
-    {   
+    {
         Vector2 position = transform.position;
 
         position += direction * speed * Time.deltaTime;

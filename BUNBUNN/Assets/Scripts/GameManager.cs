@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public GameObject topWall, bottomWall, leftWall, rightWall;
     public GameObject topPortal, botPortal, leftPortal, rightPortal;
     public float spawnLocationBuffer = 100f;
-    private GameObject dataObject,timeObject;
+    private GameObject dataObject, timeObject;
     private LocalMultiplayerGameData localData;
     private Timer timer;
     public int spawnTime = 24;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour {
     /// using that data the creation of the inital play space is made
     /// load all of the scene and portal contents
     /// </summary>
-    void Start ()
+    void Start()
     {
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
@@ -104,23 +105,23 @@ public class GameManager : MonoBehaviour {
             topPortal.tag = "Player2";
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
-            leftPortal.tag = "Player5";         
+            leftPortal.tag = "Player5";
         }
-        else if(localData.currentPlayer == 1)
+        else if (localData.currentPlayer == 1)
         {
             topPortal.tag = "Player1";
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player5";
         }
-        else if(localData.currentPlayer == 2)
+        else if (localData.currentPlayer == 2)
         {
             topPortal.tag = "Player2";
             rightPortal.tag = "Player1";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player5";
         }
-        else if(localData.currentPlayer == 3)
+        else if (localData.currentPlayer == 3)
         {
             topPortal.tag = "Player2";
             rightPortal.tag = "Player3";
@@ -128,26 +129,27 @@ public class GameManager : MonoBehaviour {
             leftPortal.tag = "Player5";
 
         }
-        else if(localData.currentPlayer == 4)
+        else if (localData.currentPlayer == 4)
         {
             topPortal.tag = "Player2";
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player1";
         }
-        
+
         ///randomly spawn game objects near bunny
         for (int i = 0; i < localData.currentPlayerScene.Count; i++)
         {
             Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer, rightWall.transform.position.x - spawnLocationBuffer),
                                            Random.Range(topWall.transform.position.y - spawnLocationBuffer, bottomWall.transform.position.y + spawnLocationBuffer));
 
-            GameObject node = Instantiate(localData.currentPlayerScene[i], location,Quaternion.identity) as GameObject;
+            GameObject node = Instantiate(localData.currentPlayerScene[i], location, Quaternion.identity) as GameObject;
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (timer.getTime() == 0)
         {
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour {
                 Destroy(this.gameObject);
             }
         }
-        
+
         if (timer.getTime() == spawnTime && spawnRound < spawnCap && spawnRound <= 11)
         {
             for (int i = 0; i < portalListSectioned[spawnRound].Count; i++)
@@ -178,13 +180,13 @@ public class GameManager : MonoBehaviour {
                 }
 
                 int portalNumber = Random.Range(0, 3);
-                if(portalNumber == 0)
+                if (portalNumber == 0)
                 {
                     Debug.Log("firing");
                     GameObject fireball = Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("TopSpawn").transform.position, Quaternion.identity) as GameObject;
                     fireball.GetComponent<Rigidbody2D>().AddForce(centerOfScreen.transform.position * speedOfObject, ForceMode2D.Impulse);
                 }
-                else if(portalNumber == 1)
+                else if (portalNumber == 1)
                 {
                     Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("LeftSpawn").transform.position, Quaternion.identity);
                 }
@@ -196,10 +198,10 @@ public class GameManager : MonoBehaviour {
                 {
                     Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("BotSpawn").transform.position, Quaternion.identity);
                 }
-            }        
+            }
             spawnTime -= 2;
             ++spawnRound;
         }
-        
-	}
+
+    }
 }

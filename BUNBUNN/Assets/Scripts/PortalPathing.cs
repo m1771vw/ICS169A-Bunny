@@ -31,7 +31,7 @@ public class PortalPathing : MonoBehaviour
             inReverse = true;
             currentWaypointArray = waypointArrayReverse;
         }
-        else if(inReverse == true && currentPathPercent >= 1f)
+        else if (inReverse == true && currentPathPercent >= 1f)
         {
             currentPathPercent = 0.0f;
             inReverse = false;
