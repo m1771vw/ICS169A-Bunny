@@ -6,12 +6,13 @@ public class NextSceneOnClick : MonoBehaviour {
 
     public string scene;
     public Text countdown;
+    public Button Next;
 	// Use this for initialization
 	void Start () {
 	
 	}
  
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         InvokeRepeating("ReduceTime", 1, 1);
     }
