@@ -19,6 +19,6 @@ public class LocalUIinGame : MonoBehaviour
     void Update()
     {
 
-        score.text = "Score: " + localData.playerData[localData.currentPlayer].score.ToString();
+        score.text = "Score:" + localData.playerData[localData.currentPlayer].score.ToString();
     }
 }
