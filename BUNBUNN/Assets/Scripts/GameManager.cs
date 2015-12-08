@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private GameObject dataObject, timeObject;
     private LocalMultiplayerGameData localData;
     private Timer timer;
-    public int spawnTime = 24;
+    public int spawnTime = 28;
     public int spawnRound = 0;
     public int spawnCap = 0;
     private Dictionary<int, List<GameObject>> portalListSectioned;
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < localData.playerData[localData.currentPlayer].trashInScene; i++)
         {
-            int randomInt = Random.Range(0, 2);
+            int randomInt = Random.Range(0, 3);
             localData.currentPlayerScene.Add(localData.trashList[randomInt]);
         }
 
@@ -52,13 +52,13 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < localData.playerData[localData.currentPlayer].trashInPortals; i++)
         {
-            int randomInt = Random.Range(0, 2);
+            int randomInt = Random.Range(0, 3);
             localData.currentPortalsContent.Add(localData.trashList[randomInt]);
         }
         ///create a gated spawn
         /// this takes in a time gate 0, 1st, 2nd, 3rd etc.
         /// then a list of game objects to be spawned at that time
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 15; i++)
         {
             List<GameObject> objectList = new List<GameObject>();
             portalListSectioned.Add(i, objectList);
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (timer.getTime() == spawnTime && spawnRound < spawnCap && spawnRound <= 11)
+        if (timer.getTime() == spawnTime && spawnRound < spawnCap && spawnRound <= 14)
         {
             for (int i = 0; i < portalListSectioned[spawnRound].Count; i++)
             {
@@ -182,9 +182,7 @@ public class GameManager : MonoBehaviour
                 int portalNumber = Random.Range(0, 3);
                 if (portalNumber == 0)
                 {
-                    Debug.Log("firing");
-                    GameObject fireball = Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("TopSpawn").transform.position, Quaternion.identity) as GameObject;
-                    fireball.GetComponent<Rigidbody2D>().AddForce(centerOfScreen.transform.position * speedOfObject, ForceMode2D.Impulse);
+                    Instantiate(portalListSectioned[spawnRound][i], GameObject.Find("TopSpawn").transform.position, Quaternion.identity);
                 }
                 else if (portalNumber == 1)
                 {
