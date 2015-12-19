@@ -43,13 +43,17 @@ public class single_multi : MonoBehaviour
         Multi.SetActive(true);
         Quit.SetActive(true);
     }
+    public void TutorialPress()
+    {
+        Application.LoadLevel("Tutorial");
+    }
     public void SinglePress()
     {
         Application.LoadLevel("Calibration");
     }
     public void MultiPress()
     {
-        //Application.LoadLevel("startscreen");
+        Application.LoadLevel("Calibration");
     }
     public void ExitGame()
     {

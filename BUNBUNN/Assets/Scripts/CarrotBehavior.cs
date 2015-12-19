@@ -17,7 +17,11 @@ public class CarrotBehavior : MonoBehaviour
     {
 
     }
-
+    void OnMouseDown()
+    {
+        localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
+        Destroy(this.gameObject);
+    }
     void OnCollisionEnter2D(Collision2D col)
     {
 
@@ -25,14 +29,14 @@ public class CarrotBehavior : MonoBehaviour
         {
             --localData.playerData[localData.currentPlayer].carrotsInScene;
             ++localData.playerData[0].carrotsInPortals;
-            localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
+            //localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
             Destroy(this.gameObject);
         }
         else if (col.gameObject.tag == "Player2")
         {
             --localData.playerData[localData.currentPlayer].carrotsInScene;
             ++localData.playerData[1].carrotsInPortals;
-            localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
+            //localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
             Destroy(this.gameObject);
         }
         else if (col.gameObject.tag == "Player3")
@@ -46,14 +50,14 @@ public class CarrotBehavior : MonoBehaviour
         {
             --localData.playerData[localData.currentPlayer].carrotsInScene;
             ++localData.playerData[3].carrotsInPortals;
-            localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
+            //localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
             Destroy(this.gameObject);
         }
         else if (col.gameObject.tag == "Player5")
         {
             --localData.playerData[localData.currentPlayer].carrotsInScene;
             ++localData.playerData[4].carrotsInPortals;
-            localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
+            //localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
             Destroy(this.gameObject);
         }
     }

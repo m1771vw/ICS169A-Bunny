@@ -26,7 +26,7 @@ public class LocalMulitplayerTurnScreen : MonoBehaviour
         /// need to kick to next screen do not remove
         localData.topScore = top;
         /////////////////////////
-        topScore.text = "Top Score " + localData.topScore.ToString();
+        topScore.text = "Top Score: " + localData.topScore.ToString();
         playerTurn.text = "Current Player: Player " + localData.currentPlayer;
 
     }
