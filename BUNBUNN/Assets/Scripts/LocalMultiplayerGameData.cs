@@ -50,19 +50,18 @@ public class LocalMultiplayerGameData : MonoBehaviour
 
     /// Initialization
     /// Sets the game up for the first round of the game
-    /// start with 100 points
-    /// 7 trash and 3 carrots loaded in scene
-    /// 6 trash in the portals and 2 trash in the scene
     void Start()
     {
         for (int i = 0; i < 5; i++)
         {
-            playerData[i].score = 300;
-            playerData[i].carrotsInScene = 3;
-            playerData[i].trashInScene = 7;
-            playerData[i].carrotsInPortals = 2;
-            playerData[i].trashInPortals = 6;
+            playerData[i].score = 0;
+            playerData[i].carrotsInScene = 0;
+            playerData[i].trashInScene = 0;
+            playerData[i].carrotsInPortals = 4;
+            playerData[i].trashInPortals = 11;
         }
+
+
     }
 
     /// <summary>
@@ -99,6 +98,9 @@ public class LocalMultiplayerGameData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Application.loadedLevelName == "single-multi")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

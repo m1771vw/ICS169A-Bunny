@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class LocalUIinGame : MonoBehaviour
 {
     public Text topScore, score;
+    public Button BackButton;
     private GameObject dataObject;
     private LocalMultiplayerGameData localData;
     // Use this for initialization
@@ -19,6 +20,10 @@ public class LocalUIinGame : MonoBehaviour
     void Update()
     {
 
-        score.text = "Score: " + localData.playerData[localData.currentPlayer].score.ToString();
+        score.text = "Score:" + localData.playerData[localData.currentPlayer].score.ToString();
+    }
+    public void BackButtonPress()
+    {
+        Application.LoadLevel("single-multi");
     }
 }
