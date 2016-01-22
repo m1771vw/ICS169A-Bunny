@@ -19,6 +19,7 @@ public class NextSceneOnClick : MonoBehaviour {
     public void ReduceTime()
     {
         countdown.text = (int.Parse(countdown.text) - 1).ToString();
+        
         if (countdown.text == "0")
         {
             Application.LoadLevel(scene);

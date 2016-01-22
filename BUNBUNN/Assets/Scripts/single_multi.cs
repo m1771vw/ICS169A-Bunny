@@ -13,6 +13,7 @@ public class single_multi : MonoBehaviour
     public GameObject Quit;
 
 
+
     void Start()
     {
         quitMenu = quitMenu.GetComponent<Canvas>();
@@ -59,4 +60,6 @@ public class single_multi : MonoBehaviour
     {
         Application.Quit();
     }
+
+
 }
