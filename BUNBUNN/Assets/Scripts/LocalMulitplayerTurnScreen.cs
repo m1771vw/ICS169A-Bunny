@@ -27,7 +27,7 @@ public class LocalMulitplayerTurnScreen : MonoBehaviour
         localData.topScore = top;
         /////////////////////////
         topScore.text = "Top Score: " + localData.topScore.ToString();
-        playerTurn.text = "Current Player: Player " + localData.currentPlayer;
+        playerTurn.text = "Current Player: Player " + localData.playerData[localData.currentPlayer].color;
 
     }
 

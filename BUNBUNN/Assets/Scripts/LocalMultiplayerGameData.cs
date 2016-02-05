@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LocalMultiplayerGameData : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// Setting base data
     /// current player goes from 0 to 4 for ease in arrays and lists
     /// </summary>
+    public int numberOfPlayers = 2;
     public int currentPlayer = 0;
     public int currentRound = 1;
     public int topScore;
@@ -16,6 +18,10 @@ public class LocalMultiplayerGameData : MonoBehaviour
     public static LocalMultiplayerGameData Instance;
     public int trashScoreWorth = 30;
     public int carrotScoreWorth;
+    public List<int> playerOrder = new List<int>();
+    public int lastPlayer;
+    public int playerIndex;
+
 
     /// <summary>
     /// total list with ALL objects for the game
@@ -27,13 +33,15 @@ public class LocalMultiplayerGameData : MonoBehaviour
     [System.Serializable]
     public class PlayerData
     {
+        public string color;
         public int score;
         public int carrotsInScene;
         public int trashInScene;
         public int carrotsInPortals;
         public int trashInPortals;
+        public bool lastPlayer;
     }
-    public PlayerData[] playerData = new PlayerData[5];
+    public List<PlayerData> playerData;
 
     /// <summary>
     /// store information for each players scene
@@ -52,16 +60,41 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// Sets the game up for the first round of the game
     void Start()
     {
-        for (int i = 0; i < 5; i++)
+        playerData = new List<PlayerData>();
+        for(int i = 0; i < numberOfPlayers; i++)
+        {
+            PlayerData newData = new PlayerData();
+            playerData.Add(newData);
+        }
+
+        if (numberOfPlayers >= 2)
+        {  
+            playerData[0].color = "White";
+            playerData[1].color = "Red";
+        }
+        if (numberOfPlayers >= 3)
+        {
+            playerData[2].color = "Yellow";
+        }
+        if (numberOfPlayers >= 4)
+        {
+            playerData[3].color = "Blue";
+        }
+        if (numberOfPlayers >= 5)
+        {
+            playerData[4].color = "Gray";
+        }
+
+        for (int i = 0; i < numberOfPlayers; i++)
         {
             playerData[i].score = 0;
             playerData[i].carrotsInScene = 0;
             playerData[i].trashInScene = 0;
-            playerData[i].carrotsInPortals = 4;
-            playerData[i].trashInPortals = 11;
+            playerData[i].carrotsInPortals = 0;
+            playerData[i].trashInPortals = 0;
         }
-
-
+        currentPlayer = 0;
+        lastPlayer = numberOfPlayers - 1;
     }
 
     /// <summary>
@@ -84,21 +117,39 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// </summary>
     public void nextPlayer()
     {
-        if (currentPlayer == 4)
+        if((currentRound == 1) && (currentPlayer != lastPlayer))
         {
+            currentPlayer++;
+        }
+        else if (currentPlayer == lastPlayer)
+        {
+            playerIndex = 0;
             ++currentRound;
-            currentPlayer = 0;
+            //Shuffle Player Order
+            int n = playerOrder.Count - 1;
+            while (n > 0)
+            {
+                int rng = Random.Range(0, n);
+                n--;
+                int k = rng;
+                int value = playerOrder[k];
+                playerOrder[k] = playerOrder[n];
+                playerOrder[n] = value;
+            }
+
+            currentPlayer = playerOrder[playerIndex];
+            lastPlayer = playerOrder[playerOrder.Count-1];
         }
         else
         {
-            ++currentPlayer;
+            playerIndex++;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Application.loadedLevelName == "single-multi")
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("single-multi"))
         {
             Destroy(this.gameObject);
         }

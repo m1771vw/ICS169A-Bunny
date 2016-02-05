@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class GameManager : MonoBehaviour
     private GameObject dataObject, timeObject;
     private LocalMultiplayerGameData localData;
     private Timer timer;
-    public int spawnTime = 28;
+    public int spawnTime = 14;
     public int spawnRound = 0;
     public int spawnCap = 0;
     private Dictionary<int, List<GameObject>> portalListSectioned;
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         ///create a gated spawn
         /// this takes in a time gate 0, 1st, 2nd, 3rd etc.
         /// then a list of game objects to be spawned at that time
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 14; i++)
         {
             List<GameObject> objectList = new List<GameObject>();
             portalListSectioned.Add(i, objectList);
@@ -99,10 +100,18 @@ public class GameManager : MonoBehaviour
             count--;
         }
 
+        SpriteRenderer colorChanger;
+        Color white = new Color(0,0,0);
+        Color yellow = new Color(0, 0, 0);
+        Color red = new Color(0, 0, 0);
+        Color blue = new Color(0, 0, 0);
+        Color w = new Color(0, 0, 0);
         ///Change portal tags for collision detection in order to put the objects in the correct buckets
         if (localData.currentPlayer == 0)
         {
             topPortal.tag = "Player2";
+            colorChanger = topPortal.GetComponent<SpriteRenderer>();
+            colorChanger.color = red;
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player5";
@@ -153,20 +162,20 @@ public class GameManager : MonoBehaviour
 
         if (timer.getTime() == 0)
         {
-            if (localData.currentRound == 2 && localData.currentPlayer == 4)
+            if (localData.currentRound == 3 && localData.currentPlayer == 4)
             {
-                Application.LoadLevel("EndLocalGameScreen");
+                SceneManager.LoadScene("EndLocalGameScreen");
             }
             else
             {
                 portalListSectioned.Clear();
                 localData.nextPlayer();
-                Application.LoadLevel("Calibration");
+                SceneManager.LoadScene("Calibration");
                 Destroy(this.gameObject);
             }
         }
 
-        if (timer.getTime() == spawnTime && spawnRound < spawnCap && spawnRound <= 14)
+        if (timer.getTime() == spawnTime)
         {
             for (int i = 0; i < portalListSectioned[spawnRound].Count; i++)
             {
