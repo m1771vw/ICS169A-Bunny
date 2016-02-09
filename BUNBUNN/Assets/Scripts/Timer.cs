@@ -11,14 +11,19 @@ public class Timer : MonoBehaviour
     private RectTransform canvas;
     private float maxTime;
     private float curTime;
+    
 
     public void Start()
     {
 
 
         timeTF = gameObject.GetComponent<Text>();
+        curTime = (float.Parse(timeTF.text));
         maxTime = (float.Parse(timeTF.text));
-        InvokeRepeating("ReduceTime", 1, 1);
+
+        //InvokeRepeating("ReduceTime", 1, 1);
+
+
         canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
 
         GameObject timeFront = new GameObject("timeBar");
@@ -34,7 +39,16 @@ public class Timer : MonoBehaviour
 
     public void Update()
     {
-        curTime = (float.Parse(timeTF.text));
+
+        //current time minus the time that has passed since the last update call in Timer
+        curTime -= Time.deltaTime;
+        
+        //this is for the GameManager class. When the current time <= 0, it'll set it manually to 0.0f for the GameManager class
+        if (curTime <= 0.0f)
+        {
+            isZero = true;
+            curTime = 0.0f;
+        }
         float percent = curTime / maxTime;
 
         if ((percent > 0.3) && (percent < 0.6))
@@ -60,26 +74,40 @@ public class Timer : MonoBehaviour
         backBar.rectTransform.offsetMax = Vector2.zero;
         backBar.rectTransform.anchorMin = new Vector2(xbar, 0.84f);
         backBar.rectTransform.anchorMax = new Vector2(1.0f, 0.85f);
-    }
 
-    public void ReduceTime()
-    {
-
-        if (timeTF.text == "0")
+        if (curTime<(maxTime/2))
         {
-            isZero = true;
+            timeTF.text = curTime.ToString();
+        }
+        else
+        {
+            if (curTime!=0)
+            {
+                timeTF.text = ((int)curTime).ToString();
+            }
         }
 
-        timeTF.text = (int.Parse(timeTF.text) - 1).ToString();
+        
     }
+
+    //public void ReduceTime()
+    //{
+
+    //    if (curTime <= -0.5f)
+    //    {
+    //        isZero = true;
+    //    }
+
+    //    timeTF.text = (int.Parse(timeTF.text) - 1).ToString();
+    //}
 
     public bool getIsZero()
     {
         return isZero;
     }
 
-    public int getTime()
+    public float getTime()
     {
-        return System.Int32.Parse(timeTF.text);
+        return curTime;
     }
 }
