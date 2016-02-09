@@ -24,7 +24,7 @@ public class CarrotBehavior : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-
+        /*
         if (col.gameObject.tag == "Player1")
         {
             --localData.playerData[localData.currentPlayer].carrotsInScene;
@@ -60,5 +60,6 @@ public class CarrotBehavior : MonoBehaviour
             //localData.playerData[localData.currentPlayer].score -= localData.carrotScoreWorth;
             Destroy(this.gameObject);
         }
+        */
     }
 }

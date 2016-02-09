@@ -21,12 +21,12 @@ public class NextSceneOnClick : MonoBehaviour {
         countdown.text = (int.Parse(countdown.text) - 1).ToString();
         if (countdown.text == "0")
         {
-            Application.LoadLevel(scene);
+            Application.LoadLevel("LocalMultiplayer");
         }
     }
     public void Back()
     {
-        Application.LoadLevel("single-multi");
+        Application.LoadLevel("MainMenu");
     }
     // Update is called once per frame
     void Update () {

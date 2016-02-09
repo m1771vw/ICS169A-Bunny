@@ -9,21 +9,23 @@ public class GameManager2 : MonoBehaviour
     public GameObject topWall, bottomWall, leftWall, rightWall;
     public GameObject topPortal, botPortal, leftPortal, rightPortal;
     public float spawnLocationBuffer = 100f;
+    public float spawnTimeBuffer = .05f;
+    public float xSpawnBuffer;
+    public float ySpawnBuffer;
     private GameObject dataObject, timeObject;
     private LocalMultiplayerGameData localData;
     private Timer timer;
-    public int spawnTime = 14;
-    public int spawnRound = 0;
-    public int spawnCap = 0;
+    public float spawnTime = 14.0f;
     private Dictionary<int, List<GameObject>> portalListSectioned;
     public GameObject centerOfScreen;
     public int speedOfObject = 10;
-    SpriteRenderer colorChanger;
-    Color white = new Color(255, 255, 255);
-    Color red = new Color(255, 0, 0);
-    Color yellow = new Color(255, 255, 0);
-    Color blue = new Color(0, 0, 255);
-    Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
+    public int portalSpawnBuffer = 10;
+    public SpriteRenderer colorChanger;
+    public Color white = new Color(255, 255, 255);
+    public Color red = new Color(255, 0, 0);
+    public Color yellow = new Color(255, 255, 0);
+    public Color blue = new Color(0, 0, 255);
+    public Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
 
     /// <summary>
     /// Local data connects to the multiplayer data
@@ -45,23 +47,43 @@ public class GameManager2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //check for end of session, round, and game
-        if (timer.getTime() == 0)
+        if (timer.getTime() <= 0)
         {
             if (localData.currentRound == 3 && localData.currentPlayer == localData.lastPlayer)
             {
-                SceneManager.LoadScene("EndLocalGameScreen");
+                Debug.Log("end game");
+                SceneManager.LoadScene("EndGameScreen");
             }
             else
             {
-                //portalListSectioned.Clear();
                 localData.nextPlayer();
-                SceneManager.LoadScene("Calibration");
+                SceneManager.LoadScene("PlayerTurnScreen");
                 Destroy(this.gameObject);
             }
         }
-    }
 
+        if(localData.playerData[localData.currentPlayer].color == "White" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        {
+            
+            if(localData.playerData[localData.currentPlayer].player2PortalContents.Count != 0)
+            {
+                
+                Vector2 location = new Vector2();
+                location   = GameObject.FindGameObjectWithTag("Player2").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = red;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
+                
+            }
+            spawnTime--;
+        }
+    }
+    //FUNNELS STILL LIVE
     //DONT TOUCH UNLESS ADDING MORE PLAYERS
     //code sorts the scene and controls the colors of the portals
     //the attachment of the portals to specific players

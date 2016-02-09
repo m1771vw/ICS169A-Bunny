@@ -33,12 +33,12 @@ public class LocalMultiplayerGameData : MonoBehaviour
         public string color;
         public int score;
         public bool lastPlayer;
-        public List<GameObject> currentSceneObjects;
-        public List<GameObject> player1PortalContents;
-        public List<GameObject> player2PortalContents;
-        public List<GameObject> player3PortalContents;
-        public List<GameObject> player4PortalContents;
-        public List<GameObject> player5PortalContents;
+        public List<GameObject> currentSceneObjects = new List<GameObject>();
+        public List<GameObject> player1PortalContents = new List<GameObject>();
+        public List<GameObject> player2PortalContents = new List<GameObject>();
+        public List<GameObject> player3PortalContents = new List<GameObject>();
+        public List<GameObject> player4PortalContents = new List<GameObject>();
+        public List<GameObject> player5PortalContents = new List<GameObject>();
     }
     public List<PlayerData> playerData;
 
@@ -163,15 +163,28 @@ public class LocalMultiplayerGameData : MonoBehaviour
         
 
         playerData = new List<PlayerData>();
-        for(int i = 0; i < numberOfPlayers; i++)
+        for (int i = 0; i < numberOfPlayers; i++)
         {
             PlayerData newData = new PlayerData();
             playerData.Add(newData);
-            ShuffleArray<GameObject>(playerData[i].player1PortalContents);
-            ShuffleArray<GameObject>(playerData[i].player2PortalContents);
-            ShuffleArray<GameObject>(playerData[i].player3PortalContents);
-            ShuffleArray<GameObject>(playerData[i].player4PortalContents);
-            ShuffleArray<GameObject>(playerData[i].player5PortalContents);
+
+            if (numberOfPlayers >= 2)
+            {
+                ShuffleArray(playerData[i].player1PortalContents);
+                ShuffleArray(playerData[i].player2PortalContents);
+            }
+            if (numberOfPlayers >= 3)
+            {
+                ShuffleArray(playerData[i].player3PortalContents);
+            }
+            if (numberOfPlayers >= 4)
+            {
+                ShuffleArray(playerData[i].player4PortalContents);
+            }
+            if (numberOfPlayers >= 5)
+            { 
+                ShuffleArray(playerData[i].player5PortalContents);
+            }
         }
 
         if (numberOfPlayers >= 2)
@@ -227,6 +240,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
         }
         else if (currentPlayer == lastPlayer)
         {
+            Debug.Log("round ++");
             playerIndex = 0;
             ++currentRound;
             //Shuffle Player Order
@@ -259,14 +273,17 @@ public class LocalMultiplayerGameData : MonoBehaviour
         }
     }
 
-    public static void ShuffleArray<T>(List<T> arr)
+    public static void ShuffleArray(List<GameObject> arr)
     {
-        for (int i = arr.Count - 1; i > 0; i--)
+        int random = Random.Range(0, arr.Capacity);
+        int n = arr.Capacity;
+        while (n > 1)
         {
-            int r = Random.Range(0, i);
-            T tmp = arr[i];
-            arr[i] = arr[r];
-            arr[r] = tmp;
+            n--;
+            int k = Random.Range(0, n - 1);
+            GameObject value = arr[k];
+            arr[k] = arr[n];
+            arr[n] = value;
         }
     }
 }
