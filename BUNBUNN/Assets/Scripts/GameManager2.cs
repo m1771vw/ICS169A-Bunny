@@ -18,6 +18,12 @@ public class GameManager2 : MonoBehaviour
     private Dictionary<int, List<GameObject>> portalListSectioned;
     public GameObject centerOfScreen;
     public int speedOfObject = 10;
+    SpriteRenderer colorChanger;
+    Color white = new Color(255, 255, 255);
+    Color red = new Color(255, 0, 0);
+    Color yellow = new Color(255, 255, 0);
+    Color blue = new Color(0, 0, 255);
+    Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
 
     /// <summary>
     /// Local data connects to the multiplayer data
@@ -32,19 +38,8 @@ public class GameManager2 : MonoBehaviour
         timer = timeObject.GetComponent<Timer>();
         portalListSectioned = new Dictionary<int, List<GameObject>>();
 
-        localData.currentPlayerScene.Clear();
-        localData.currentPlayerScene.TrimExcess();
-
         PlayerSetup();
-
-        ///randomly spawn game objects near bunny
-        for (int i = 0; i < localData.currentPlayerScene.Count; i++)
-        {
-            Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer, rightWall.transform.position.x - spawnLocationBuffer),
-                                           Random.Range(topWall.transform.position.y - spawnLocationBuffer, bottomWall.transform.position.y + spawnLocationBuffer));
-
-            GameObject node = Instantiate(localData.currentPlayerScene[i], location, Quaternion.identity) as GameObject;
-        }
+        sceneSetup();
     }
 
     // Update is called once per frame
@@ -73,12 +68,7 @@ public class GameManager2 : MonoBehaviour
     //and changes it based on the number players in the game
     void PlayerSetup()
     {
-        SpriteRenderer colorChanger;
-        Color white = new Color(255, 255, 255);
-        Color red = new Color(255, 0, 0);
-        Color yellow = new Color(255, 255, 0);
-        Color blue = new Color(0, 0, 255);
-        Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
+
         ///Change portal tags for collision detection in order to put the objects in the correct buckets
         if (localData.playerData[localData.currentPlayer].color == "White")
         {
@@ -317,5 +307,61 @@ public class GameManager2 : MonoBehaviour
                 colorChanger.color = white;
             }
         }
+    }
+
+
+    //place object back on to the scene
+    //color them the corresponding color (if white player is up his leftovers are HIS color)
+    //clear the list to start from zero
+    void sceneSetup()
+    {
+        Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer, rightWall.transform.position.x - spawnLocationBuffer),
+                                           Random.Range(topWall.transform.position.y - spawnLocationBuffer, bottomWall.transform.position.y + spawnLocationBuffer));
+        if (localData.playerData[localData.currentPlayer].color == "White")
+        {
+            for (int i = 0; i < localData.playerData[localData.currentPlayer].currentSceneObjects.Count; i++)
+            {
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = white;
+            }
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Red")
+        {
+            for (int i = 0; i < localData.playerData[localData.currentPlayer].currentSceneObjects.Count; i++)
+            {
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = red;
+            }
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Yellow")
+        {
+            for (int i = 0; i < localData.playerData[localData.currentPlayer].currentSceneObjects.Count; i++)
+            {
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = yellow;
+            }
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Blue")
+        {
+            for (int i = 0; i < localData.playerData[localData.currentPlayer].currentSceneObjects.Count; i++)
+            {
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = blue;
+            }
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Gray")
+        {
+            for (int i = 0; i < localData.playerData[localData.currentPlayer].currentSceneObjects.Count; i++)
+            {
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = gray;
+            }
+        }
+        localData.playerData[localData.currentPlayer].currentSceneObjects.Clear();
     }
 }

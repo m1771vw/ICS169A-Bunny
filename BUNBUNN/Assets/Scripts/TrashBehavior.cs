@@ -18,38 +18,33 @@ public class TrashBehavior : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col)
     {
         
-        if (col.gameObject.tag == "Player1")
+        if (col.gameObject.tag == "Player1" && localData.playerData[localData.currentPlayer].color == "red")
         {
-            --localData.playerData[localData.currentPlayer].trashInScene;
-            ++localData.playerData[0].trashInPortals;
+            localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
             localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
             Destroy(this.gameObject);
         }
         else if(col.gameObject.tag == "Player2")
         {
-            --localData.playerData[localData.currentPlayer].trashInScene;
-            ++localData.playerData[1].trashInPortals;
+            localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
             localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
             Destroy(this.gameObject);
         }
         else if (col.gameObject.tag == "Player3")
         {
-            --localData.playerData[localData.currentPlayer].trashInScene;
-            ++localData.playerData[2].trashInPortals;
+            localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
             localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
             Destroy(this.gameObject);
         }
         else if (col.gameObject.tag == "Player4")
         {
-            --localData.playerData[localData.currentPlayer].trashInScene;
-            ++localData.playerData[3].trashInPortals;
+            localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
             localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
             Destroy(this.gameObject);
         }
         else if (col.gameObject.tag == "Player5")
         {
-            --localData.playerData[localData.currentPlayer].trashInScene;
-            ++localData.playerData[4].trashInPortals;
+            localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
             localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
             Destroy(this.gameObject);
         }
