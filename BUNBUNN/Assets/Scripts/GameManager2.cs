@@ -12,6 +12,7 @@ public class GameManager2 : MonoBehaviour
     public float spawnTimeBuffer = .05f;
     public float xSpawnBuffer;
     public float ySpawnBuffer;
+    public float firstRoundStartTime, secondRoundStartTime, thirdRoundStartTime;
     private GameObject dataObject, timeObject;
     private LocalMultiplayerGameData localData;
     private Timer timer;
@@ -20,12 +21,16 @@ public class GameManager2 : MonoBehaviour
     public GameObject centerOfScreen;
     public int speedOfObject = 10;
     public int portalSpawnBuffer = 10;
+    public int totalStartingObjectCount;
+    public int startingTrashCount;
+    public int startingCarrotCount;
     public SpriteRenderer colorChanger;
     public Color white = new Color(255, 255, 255);
     public Color red = new Color(255, 0, 0);
     public Color yellow = new Color(255, 255, 0);
     public Color blue = new Color(0, 0, 255);
     public Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
+    public List<GameObject> portalList = new List<GameObject>(); 
 
     /// <summary>
     /// Local data connects to the multiplayer data
@@ -40,6 +45,19 @@ public class GameManager2 : MonoBehaviour
         timer = timeObject.GetComponent<Timer>();
         portalListSectioned = new Dictionary<int, List<GameObject>>();
 
+        if (localData.currentRound == 1)
+        {
+            timer.setMaxTime(firstRoundStartTime);
+        }
+        else if (localData.currentRound == 2)
+        {
+            timer.setMaxTime(secondRoundStartTime);
+        }
+        else
+        {
+            timer.setMaxTime(thirdRoundStartTime);
+        }
+
         PlayerSetup();
         sceneSetup();
     }
@@ -53,7 +71,6 @@ public class GameManager2 : MonoBehaviour
         {
             if (localData.currentRound == 3 && localData.currentPlayer == localData.lastPlayer)
             {
-                Debug.Log("end game");
                 SceneManager.LoadScene("EndGameScreen");
             }
             else
@@ -64,26 +81,32 @@ public class GameManager2 : MonoBehaviour
             }
         }
 
-        if(localData.playerData[localData.currentPlayer].color == "White" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
-            
-            if(localData.playerData[localData.currentPlayer].player2PortalContents.Count != 0)
+            for(int i = 0; i < localData.numberOfPlayers - 1; i++)
             {
-                
-                Vector2 location = new Vector2();
-                location   = GameObject.FindGameObjectWithTag("Player2").transform.position;
-                location += location;
-                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
-                colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
-                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
-                localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
-                
+                if(totalStartingObjectCount != 0)
+                {
+                    Vector3 direction = new Vector3();
+                    direction = GameObject.Find("TopPortal").transform.position - centerOfScreen.transform.position;
+                    direction.Normalize();
+                    GameObject node = Instantiate(gameObject, GameObject.Find("TopPortal").transform.position + direction , Quaternion.identity) as GameObject;
+                    totalStartingObjectCount--;
+                }     
             }
-            spawnTime--;
         }
+
+
+        spawnPortalObjects();
     }
+
+    float spawnTimeSet()
+    {
+        return timer.maxTime / (totalStartingObjectCount / localData.numberOfPlayers);
+    }
+
     //FUNNELS STILL LIVE
+    // set inactive for parents of the prefab
     //DONT TOUCH UNLESS ADDING MORE PLAYERS
     //code sorts the scene and controls the colors of the portals
     //the attachment of the portals to specific players
@@ -385,5 +408,274 @@ public class GameManager2 : MonoBehaviour
             }
         }
         localData.playerData[localData.currentPlayer].currentSceneObjects.Clear();
+    }
+
+    void spawnPortalObjects()
+    {
+        if (localData.playerData[localData.currentPlayer].color == "White" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        {
+
+            if (localData.playerData[localData.currentPlayer].player2PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player2").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = red;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player3").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = yellow;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player4PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player4").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = blue;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player5PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player5").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = gray;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
+            }
+            spawnTime--;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Red" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        {
+
+            if (localData.playerData[localData.currentPlayer].player1PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player1").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = white;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player3").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = yellow;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player4PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player4").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = blue;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player5PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player5").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = gray;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
+            }
+            spawnTime--;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Yellow" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        {
+
+            if (localData.playerData[localData.currentPlayer].player1PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player1").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = white;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player2").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = red;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player4PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player4").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = blue;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player5PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player5").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = gray;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
+            }
+            spawnTime--;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Blue" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        {
+
+            if (localData.playerData[localData.currentPlayer].player1PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player1").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = white;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player2").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = red;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player3").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = yellow;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player5PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player5").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = gray;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
+            }
+            spawnTime--;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Gray" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
+        {
+
+            if (localData.playerData[localData.currentPlayer].player1PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player1").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = white;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player2").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = red;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player3PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player3").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = yellow;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
+            }
+            if (localData.playerData[localData.currentPlayer].player5PortalContents.Count != 0)
+            {
+
+                Vector2 location = new Vector2();
+                location = GameObject.FindGameObjectWithTag("Player4").transform.position;
+                location += location;
+                GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
+                colorChanger = node.GetComponent<SpriteRenderer>();
+                colorChanger.color = gray;
+                localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
+                localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
+            }
+            spawnTime--;
+        }
     }
 }

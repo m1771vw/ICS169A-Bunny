@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     private Image timeBar;
     private Image backBar;
     private RectTransform canvas;
-    private float maxTime;
+    public float maxTime;
     private float curTime;
     
 
@@ -35,6 +35,11 @@ public class Timer : MonoBehaviour
         backBar = timeBack.AddComponent<Image>();
         backBar.rectTransform.SetParent(canvas.transform, false);
         backBar.color = new Color(0.0f, 0.0f, 0.0f);
+    }
+
+    public void setMaxTime(float number)
+    {
+        maxTime = number;
     }
 
     public void Update()

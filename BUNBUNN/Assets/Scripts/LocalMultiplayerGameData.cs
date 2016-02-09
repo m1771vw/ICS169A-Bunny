@@ -234,10 +234,16 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// </summary>
     public void nextPlayer()
     {
-        if((currentRound == 1) && (currentPlayer != lastPlayer))
+        if((currentPlayer != lastPlayer))
         {
             currentPlayer++;
         }
+        else
+        {
+            currentPlayer = 0;
+            currentRound++;
+        }
+        /*
         else if (currentPlayer == lastPlayer)
         {
             Debug.Log("round ++");
@@ -257,11 +263,8 @@ public class LocalMultiplayerGameData : MonoBehaviour
 
             currentPlayer = playerOrder[playerIndex];
             lastPlayer = playerOrder[playerOrder.Count-1];
-        }
-        else
-        {
-            playerIndex++;
-        }
+        }*/
+
     }
 
     // Update is called once per frame
