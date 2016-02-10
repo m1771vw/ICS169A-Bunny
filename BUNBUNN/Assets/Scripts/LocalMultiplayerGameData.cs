@@ -26,6 +26,8 @@ public class LocalMultiplayerGameData : MonoBehaviour
     public int playerIndex;
     public int startingCarrots;
     public int startingTrash;
+    public List<GameObject> startingObjectList = new List<GameObject>();
+
 
     [System.Serializable]
     public class PlayerData
@@ -48,119 +50,14 @@ public class LocalMultiplayerGameData : MonoBehaviour
     {
         for (int i = 0; i < startingCarrots; i++)
         {
-            playerData[0].player2PortalContents.Add(carrot);
-            playerData[0].player3PortalContents.Add(carrot);
-            playerData[0].player4PortalContents.Add(carrot);
-            playerData[0].player5PortalContents.Add(carrot);
-
-            playerData[1].player1PortalContents.Add(carrot);
-            playerData[1].player3PortalContents.Add(carrot);
-            playerData[1].player4PortalContents.Add(carrot);
-            playerData[1].player5PortalContents.Add(carrot);
-
-            playerData[2].player2PortalContents.Add(carrot);
-            playerData[2].player1PortalContents.Add(carrot);
-            playerData[2].player4PortalContents.Add(carrot);
-            playerData[2].player5PortalContents.Add(carrot);
-
-            playerData[3].player2PortalContents.Add(carrot);
-            playerData[3].player3PortalContents.Add(carrot);
-            playerData[3].player4PortalContents.Add(carrot);
-            playerData[3].player5PortalContents.Add(carrot);
-
-            playerData[4].player2PortalContents.Add(carrot);
-            playerData[4].player3PortalContents.Add(carrot);
-            playerData[4].player1PortalContents.Add(carrot);
-            playerData[4].player5PortalContents.Add(carrot);
-
-            playerData[5].player2PortalContents.Add(carrot);
-            playerData[5].player3PortalContents.Add(carrot);
-            playerData[5].player4PortalContents.Add(carrot);
-            playerData[5].player1PortalContents.Add(carrot);
+            startingObjectList.Add(carrot);
         }
-
         for (int i = 0; i < startingTrash; i++)
         {
             int random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[0].player2PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[0].player3PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[0].player4PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[0].player5PortalContents.Add(trash);
-
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[1].player1PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[1].player3PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[1].player4PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[1].player5PortalContents.Add(trash);
-
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[2].player2PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[2].player1PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[2].player4PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[2].player5PortalContents.Add(trash);
-
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[3].player2PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[3].player3PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[3].player4PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[3].player5PortalContents.Add(trash);
-
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[4].player2PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[4].player3PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[4].player1PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[4].player5PortalContents.Add(trash);
-
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[5].player2PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[5].player3PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[5].player4PortalContents.Add(trash);
-            random = Random.Range(0, trashList.Count);
-            trash = trashList[random];
-            playerData[5].player1PortalContents.Add(trash);
+            startingObjectList.Add(trashList[random]);
         }
-
-        
+        ShuffleArray(startingObjectList);
 
         playerData = new List<PlayerData>();
         for (int i = 0; i < numberOfPlayers; i++)
@@ -278,8 +175,8 @@ public class LocalMultiplayerGameData : MonoBehaviour
 
     public static void ShuffleArray(List<GameObject> arr)
     {
-        int random = Random.Range(0, arr.Capacity);
-        int n = arr.Capacity;
+        int random = Random.Range(0, arr.Count);
+        int n = arr.Count;
         while (n > 1)
         {
             n--;

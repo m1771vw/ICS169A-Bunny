@@ -8,6 +8,7 @@ public class GameManager2 : MonoBehaviour
 
     public GameObject topWall, bottomWall, leftWall, rightWall;
     public GameObject topPortal, botPortal, leftPortal, rightPortal;
+    public int totalObjectCount;
     public float spawnLocationBuffer = 100f;
     public float spawnTimeBuffer = .05f;
     public float xSpawnBuffer;
@@ -17,11 +18,9 @@ public class GameManager2 : MonoBehaviour
     private LocalMultiplayerGameData localData;
     private Timer timer;
     public float spawnTime = 14.0f;
-    private Dictionary<int, List<GameObject>> portalListSectioned;
     public GameObject centerOfScreen;
     public int speedOfObject = 10;
     public int portalSpawnBuffer = 10;
-    public int totalStartingObjectCount;
     public int startingTrashCount;
     public int startingCarrotCount;
     public SpriteRenderer colorChanger;
@@ -30,7 +29,8 @@ public class GameManager2 : MonoBehaviour
     public Color yellow = new Color(255, 255, 0);
     public Color blue = new Color(0, 0, 255);
     public Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
-    public List<GameObject> portalList = new List<GameObject>(); 
+    public List<GameObject> portalList = new List<GameObject>();
+    public float spawnTimeIntervalForDecrementing = 0; 
 
     /// <summary>
     /// Local data connects to the multiplayer data
@@ -43,11 +43,15 @@ public class GameManager2 : MonoBehaviour
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
         timer = timeObject.GetComponent<Timer>();
-        portalListSectioned = new Dictionary<int, List<GameObject>>();
+
+        calculateTotalObjectCount();
+        
 
         if (localData.currentRound == 1)
         {
             timer.setMaxTime(firstRoundStartTime);
+            totalObjectCount = localData.startingObjectList.Count;
+            
         }
         else if (localData.currentRound == 2)
         {
@@ -58,6 +62,7 @@ public class GameManager2 : MonoBehaviour
             timer.setMaxTime(thirdRoundStartTime);
         }
 
+        setSpawnTimeIntervalForDecrementing();
         PlayerSetup();
         sceneSetup();
     }
@@ -83,26 +88,61 @@ public class GameManager2 : MonoBehaviour
 
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
+            Debug.Log("spawn");
             for(int i = 0; i < localData.numberOfPlayers - 1; i++)
             {
-                if(totalStartingObjectCount != 0)
+                if(totalObjectCount != 0)
                 {
+                    int random = Random.Range(0, (localData.numberOfPlayers));
                     Vector3 direction = new Vector3();
-                    direction = GameObject.Find("TopPortal").transform.position - centerOfScreen.transform.position;
+                    direction = portalList[random].transform.position - centerOfScreen.transform.position;
                     direction.Normalize();
-                    GameObject node = Instantiate(gameObject, GameObject.Find("TopPortal").transform.position + direction , Quaternion.identity) as GameObject;
-                    totalStartingObjectCount--;
-                }     
+                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position + direction , Quaternion.identity) as GameObject;
+                    totalObjectCount--;
+                }                
             }
+            spawnTime -= spawnTimeIntervalForDecrementing;
         }
+
 
 
         spawnPortalObjects();
     }
 
-    float spawnTimeSet()
+    void setSpawnTimeIntervalForDecrementing()
     {
-        return timer.maxTime / (totalStartingObjectCount / localData.numberOfPlayers);
+        float temp = (float)totalObjectCount / (float)localData.numberOfPlayers;
+        spawnTimeIntervalForDecrementing = (float)timer.maxTime / (float)temp;
+    }
+
+    void calculateTotalObjectCount()
+    {
+        if (localData.playerData[localData.currentPlayer].color == "White")
+        {
+           totalObjectCount = localData.playerData[localData.currentPlayer].player2PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count
+                + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player5PortalContents.Count;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Red")
+        {
+            totalObjectCount = localData.playerData[localData.currentPlayer].player1PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count
+                + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player5PortalContents.Count;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Yellow")
+        {
+            totalObjectCount = localData.playerData[localData.currentPlayer].player1PortalContents.Count + localData.playerData[localData.currentPlayer].player2PortalContents.Count
+                + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player5PortalContents.Count;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Blue")
+        {
+            totalObjectCount = localData.playerData[localData.currentPlayer].player1PortalContents.Count + localData.playerData[localData.currentPlayer].player2PortalContents.Count
+                + localData.playerData[localData.currentPlayer].player3PortalContents.Count + localData.playerData[localData.currentPlayer].player5PortalContents.Count;
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Gray")
+        {
+            totalObjectCount = localData.playerData[localData.currentPlayer].player1PortalContents.Count + localData.playerData[localData.currentPlayer].player2PortalContents.Count
+                + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count;
+        }
+
     }
 
     //FUNNELS STILL LIVE
@@ -463,7 +503,7 @@ public class GameManager2 : MonoBehaviour
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
-            spawnTime--;
+            spawnTime -= spawnTimeIntervalForDecrementing;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Red" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
@@ -516,7 +556,7 @@ public class GameManager2 : MonoBehaviour
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
-            spawnTime--;
+            spawnTime -= spawnTimeIntervalForDecrementing;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Yellow" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
@@ -569,7 +609,7 @@ public class GameManager2 : MonoBehaviour
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
-            spawnTime--;
+            spawnTime -= spawnTimeIntervalForDecrementing;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Blue" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
@@ -622,7 +662,7 @@ public class GameManager2 : MonoBehaviour
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
-            spawnTime--;
+            spawnTime -= spawnTimeIntervalForDecrementing;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Gray" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
@@ -675,7 +715,7 @@ public class GameManager2 : MonoBehaviour
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
             }
-            spawnTime--;
+            spawnTime -= spawnTimeIntervalForDecrementing;
         }
     }
 }
