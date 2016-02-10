@@ -31,6 +31,7 @@ public class GameManager2 : MonoBehaviour
     public Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
     public List<GameObject> portalList = new List<GameObject>();
     public float spawnTimeIntervalForDecrementing = 0; 
+    public int spawnCounter;
 
     /// <summary>
     /// Local data connects to the multiplayer data
@@ -88,7 +89,7 @@ public class GameManager2 : MonoBehaviour
 
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
-            Debug.Log("spawn");
+            
             for(int i = 0; i < localData.numberOfPlayers - 1; i++)
             {
                 if(totalObjectCount != 0)
@@ -99,6 +100,7 @@ public class GameManager2 : MonoBehaviour
                     direction.Normalize();
                     GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position + direction , Quaternion.identity) as GameObject;
                     totalObjectCount--;
+                    spawnCounter++;
                 }                
             }
             spawnTime -= spawnTimeIntervalForDecrementing;
@@ -111,7 +113,7 @@ public class GameManager2 : MonoBehaviour
 
     void setSpawnTimeIntervalForDecrementing()
     {
-        float temp = (float)totalObjectCount / (float)localData.numberOfPlayers;
+        float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers -1);
         spawnTimeIntervalForDecrementing = (float)timer.maxTime / (float)temp;
     }
 
