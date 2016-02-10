@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
     private Text timeTF;
     public bool isZero = false;
     private Image timeBar;
+    public bool TIMEBAR = false;
     private Image backBar;
     private RectTransform canvas;
     private float maxTime;
@@ -19,6 +20,15 @@ public class Timer : MonoBehaviour
         timeTF = gameObject.GetComponent<Text>();
         maxTime = (float.Parse(timeTF.text));
         InvokeRepeating("ReduceTime", 1, 1);
+        if (TIMEBAR)
+        {
+            timebar();
+        }
+        
+
+    }
+    public void timebar()
+    {
         canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
 
         GameObject timeFront = new GameObject("timeBar");
@@ -31,8 +41,15 @@ public class Timer : MonoBehaviour
         backBar.rectTransform.SetParent(canvas.transform, false);
         backBar.color = new Color(0.0f, 0.0f, 0.0f);
     }
-
     public void Update()
+    {
+        if(TIMEBAR)
+        {
+            Draw();
+        }
+    }
+
+    public void Draw()
     {
         curTime = (float.Parse(timeTF.text));
         float percent = curTime / maxTime;
@@ -61,7 +78,6 @@ public class Timer : MonoBehaviour
         backBar.rectTransform.anchorMin = new Vector2(xbar, 0.84f);
         backBar.rectTransform.anchorMax = new Vector2(1.0f, 0.85f);
     }
-
     public void ReduceTime()
     {
 

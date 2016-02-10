@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
         else if (localData.currentPlayer == 1)
         {
             topPortal.tag = "Player1";
+            colorChanger = topPortal.GetComponent<SpriteRenderer>();
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player5";
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
         else if (localData.currentPlayer == 2)
         {
             topPortal.tag = "Player2";
+            colorChanger = topPortal.GetComponent<SpriteRenderer>();
             rightPortal.tag = "Player1";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player5";
@@ -133,6 +135,7 @@ public class GameManager : MonoBehaviour
         else if (localData.currentPlayer == 3)
         {
             topPortal.tag = "Player2";
+            colorChanger = topPortal.GetComponent<SpriteRenderer>();
             rightPortal.tag = "Player3";
             botPortal.tag = "Player1";
             leftPortal.tag = "Player5";
@@ -141,6 +144,7 @@ public class GameManager : MonoBehaviour
         else if (localData.currentPlayer == 4)
         {
             topPortal.tag = "Player2";
+            colorChanger = topPortal.GetComponent<SpriteRenderer>();
             rightPortal.tag = "Player3";
             botPortal.tag = "Player4";
             leftPortal.tag = "Player1";

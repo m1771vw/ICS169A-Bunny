@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LocalUIinGame : MonoBehaviour
 {
@@ -22,8 +23,10 @@ public class LocalUIinGame : MonoBehaviour
 
         score.text = "Score:" + localData.playerData[localData.currentPlayer].score.ToString();
     }
+    /*
     public void BackButtonPress()
     {
-        Application.LoadLevel("single-multi");
+        SceneManager.LoadScene("single-multi");
     }
+    */
 }

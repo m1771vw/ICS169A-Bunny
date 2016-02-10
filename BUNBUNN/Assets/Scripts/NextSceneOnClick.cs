@@ -11,7 +11,19 @@ public class NextSceneOnClick : MonoBehaviour {
 	void Start () {
 	
 	}
- 
+
+    void Update()
+    {
+        GameObject[] thingyToFind = GameObject.FindGameObjectsWithTag("trash");
+        int thingyCount = thingyToFind.Length;
+        Debug.Log(thingyCount);
+        if (thingyCount == 0)
+        {
+            Application.LoadLevel(scene);
+            //Back.SetActive(true);
+            //BackButton.enabled = true;
+        }
+    }
     public void OnMouseDown()
     {
         InvokeRepeating("ReduceTime", 1, 1);
@@ -29,7 +41,4 @@ public class NextSceneOnClick : MonoBehaviour {
         Application.LoadLevel("single-multi");
     }
     // Update is called once per frame
-    void Update () {
-	
-	}
 }
