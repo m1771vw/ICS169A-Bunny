@@ -48,6 +48,34 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// Sets the game up for the first round of the game
     void Start()
     {
+
+
+    }
+
+    /// <summary>
+    /// keep this data until main sceen then destroy it
+    /// </summary>
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void updatePlayerCount(int num)
+    {
+        numberOfPlayers = num;
+        build();
+    }
+
+    void build()
+    {
         for (int i = 0; i < startingCarrots; i++)
         {
             startingObjectList.Add(carrot);
@@ -79,13 +107,13 @@ public class LocalMultiplayerGameData : MonoBehaviour
                 ShuffleArray(playerData[i].player4PortalContents);
             }
             if (numberOfPlayers >= 5)
-            { 
+            {
                 ShuffleArray(playerData[i].player5PortalContents);
             }
         }
 
         if (numberOfPlayers >= 2)
-        {  
+        {
             playerData[0].color = "White";
             playerData[1].color = "Red";
         }
@@ -112,23 +140,11 @@ public class LocalMultiplayerGameData : MonoBehaviour
     }
 
     /// <summary>
-    /// keep this data until main sceen then destroy it
-    /// </summary>
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-    /// <summary>
     /// for ease of lists current player goes from 0 - 4
     /// </summary>
+    /// 
+
+
     public void nextPlayer()
     {
         if((currentPlayer != lastPlayer))

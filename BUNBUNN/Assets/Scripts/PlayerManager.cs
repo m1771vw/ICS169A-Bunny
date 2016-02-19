@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour {
 
     private RectTransform UI;
@@ -133,7 +134,7 @@ public class PlayerManager : MonoBehaviour {
     public void NextButtonClick()
     {
         LocalMultiplayerGameData data = GameObject.Find("LocalMultiplayerGameData").GetComponent<LocalMultiplayerGameData>();
-        data.numberOfPlayers = inputNum;
-        Debug.Log(data.numberOfPlayers);
+        data.updatePlayerCount(inputNum);
+        SceneManager.LoadScene("PlayerTurnScreen");
     }
 }

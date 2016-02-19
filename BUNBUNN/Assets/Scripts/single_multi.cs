@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class single_multi : MonoBehaviour
 {
     public Canvas quitMenu;
@@ -18,7 +18,7 @@ public class single_multi : MonoBehaviour
         quitMenu = quitMenu.GetComponent<Canvas>();
         exitText = exitText.GetComponent<Button>();
         PlaySingle = PlaySingle.GetComponent<Button>();
-        PlayMulti = PlayMulti.GetComponent<Button>();
+        //PlayMulti = PlayMulti.GetComponent<Button>();
         quitMenu.enabled = false;
 
     }
@@ -45,15 +45,15 @@ public class single_multi : MonoBehaviour
     }
     public void TutorialPress()
     {
-        Application.LoadLevel("Tutorial");
+        SceneManager.LoadScene("Tutorial");
     }
     public void SinglePress()
     {
-        Application.LoadLevel("Calibration");
+        SceneManager.LoadScene("PlayerNamingAndNumber");
     }
     public void MultiPress()
     {
-        Application.LoadLevel("Calibration");
+       // Application.LoadLevel("Calibration");
     }
     public void ExitGame()
     {
