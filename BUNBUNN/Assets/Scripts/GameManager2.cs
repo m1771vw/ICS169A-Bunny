@@ -96,11 +96,14 @@ public class GameManager2 : MonoBehaviour
                 {
                     localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.startingObjectList[totalObjectCount - 1]);
 
-                    int random = Random.Range(0, (localData.numberOfPlayers));
+                    int random = Random.Range(0, (localData.numberOfPlayers-1));
                     Vector3 direction = new Vector3();
                     direction = portalList[random].transform.position - centerOfScreen.transform.position;
                     direction.Normalize();
-                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position - (direction*2) , Quaternion.identity) as GameObject;                   
+                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position - (direction*2) , Quaternion.identity) as GameObject;
+                    
+                    node.GetComponent<Rigidbody2D>().AddForce(new Vector2(-direction.x*2, -direction.y*2), ForceMode2D.Impulse);
+                    
                     totalObjectCount--;
                     spawnCounter++;
                 }                
