@@ -20,8 +20,16 @@ public class PlayerManager : MonoBehaviour {
     {
         UI = GameObject.Find("MenuUI").GetComponent<RectTransform>();
         listOfInputFields = new List<GameObject>();
+        whitePlayer = GameObject.Find("whitePlayer");
+        bluePlayer = GameObject.Find("bluePlayer");
+        redPlayer = GameObject.Find("redPlayer");
+        yellowPlayer = GameObject.Find("yellowPlayer");
+        grayPlayer = GameObject.Find("grayPlayer");
+        addButtonInstance = GameObject.Find("AddButton");
+        subButtonInstance = GameObject.Find("SubButton");
         SetupInputFields();
-        
+
+
 
 
 	}
@@ -31,27 +39,26 @@ public class PlayerManager : MonoBehaviour {
 
 
         //instantiate all inputfields
-        whitePlayer = Instantiate(inputField, new Vector3(0, locationY, 0), Quaternion.identity) as GameObject;
-        whitePlayer.transform.SetParent(UI, false);
-        whitePlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: White";
+        //whitePlayer = Instantiate(inputField, new Vector3(0, locationY, 0), Quaternion.identity) as GameObject;
+        //whitePlayer.transform.SetParent(UI, false);
+        //whitePlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: White";
 
-        
 
-        redPlayer = Instantiate(inputField, new Vector3(0, locationY - 40, 0), Quaternion.identity) as GameObject;
-        redPlayer.transform.SetParent(UI, false);
-        redPlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Red";
+        //redPlayer = Instantiate(inputField, new Vector3(0, locationY - 20, 0), Quaternion.identity) as GameObject;
+        //redPlayer.transform.SetParent(UI, false);
+        //redPlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Red";
 
-        yellowPlayer = Instantiate(inputField, new Vector3(0, locationY - 80, 0), Quaternion.identity) as GameObject;
-        yellowPlayer.transform.SetParent(UI, false);
-        yellowPlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Yellow";
+        //yellowPlayer = Instantiate(inputField, new Vector3(0, locationY - 60, 0), Quaternion.identity) as GameObject;
+        //yellowPlayer.transform.SetParent(UI, false);
+        //yellowPlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Yellow";
 
-        bluePlayer = Instantiate(inputField, new Vector3(0, locationY - 120, 0), Quaternion.identity) as GameObject;
-        bluePlayer.transform.SetParent(UI, false);
-        bluePlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Blue";
+        //bluePlayer = Instantiate(inputField, new Vector3(0, locationY - 100, 0), Quaternion.identity) as GameObject;
+        //bluePlayer.transform.SetParent(UI, false);
+        //bluePlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Blue";
 
-        grayPlayer = Instantiate(inputField, new Vector3(0, locationY - 160, 0), Quaternion.identity) as GameObject;
-        grayPlayer.transform.SetParent(UI, false);
-        grayPlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Gray";
+        //grayPlayer = Instantiate(inputField, new Vector3(0, locationY - 140, 0), Quaternion.identity) as GameObject;
+        //grayPlayer.transform.SetParent(UI, false);
+        //grayPlayer.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Player: Gray";
 
 
         //disable to hide
@@ -67,12 +74,10 @@ public class PlayerManager : MonoBehaviour {
         listOfInputFields.Add(grayPlayer);
 
         
-        addButtonInstance = Instantiate(addButton, new Vector3(50, locationY-80, 0), Quaternion.identity) as GameObject;
-        addButtonInstance.transform.SetParent(UI, false);
+
         addButtonInstance.GetComponent<Button>().onClick.AddListener(addButtonClick);
 
-        subButtonInstance = Instantiate(subButton, new Vector3(-50, locationY - 80, 0), Quaternion.identity) as GameObject;
-        subButtonInstance.transform.SetParent(UI, false);
+
         subButtonInstance.GetComponent<Button>().onClick.AddListener(subButtonClick);
         subButtonInstance.SetActive(false);
 
@@ -82,6 +87,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void addButtonClick()
     {
+        subButtonInstance.SetActive(true);
         if (inputNum<5)
         {
             inputNum++;
@@ -92,26 +98,11 @@ public class PlayerManager : MonoBehaviour {
             listOfInputFields[i].SetActive(true);
         }
 
-        
-
-        Destroy(subButtonInstance);
-
-        if (inputNum<5)
-        {
-            Destroy(addButtonInstance);
-            addButtonInstance = Instantiate(addButton, new Vector3(50, locationY - (40 * (inputNum)), 0), Quaternion.identity) as GameObject;
-            addButtonInstance.transform.SetParent(UI, false);
-            addButtonInstance.GetComponent<Button>().onClick.AddListener(addButtonClick);
-        }
-        else
+        if (inputNum >=5)
         {
             addButtonInstance.SetActive(false);
         }
-        
 
-        subButtonInstance = Instantiate(subButton, new Vector3(-50, locationY - (40 * (inputNum)), 0), Quaternion.identity) as GameObject;
-        subButtonInstance.transform.SetParent(UI, false);
-        subButtonInstance.GetComponent<Button>().onClick.AddListener(subButtonClick);
         
         //addButton.transform.position = new Vector3(addButton.transform.position.x, addButton.transform.position.y + 40 * inputNum, 0);
 
@@ -119,6 +110,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void subButtonClick()
     {
+        addButtonInstance.SetActive(true);
         if (inputNum>2)
         {
             inputNum--;
@@ -129,21 +121,9 @@ public class PlayerManager : MonoBehaviour {
             listOfInputFields[i].SetActive(false);
         }
 
-        Destroy(addButtonInstance);
 
-
-        addButtonInstance = Instantiate(addButton, new Vector3(50, locationY - (40 * (inputNum)), 0), Quaternion.identity) as GameObject;
-        addButtonInstance.transform.SetParent(UI, false);
-        addButtonInstance.GetComponent<Button>().onClick.AddListener(addButtonClick);
-
-        if (inputNum>2)
-        {
-            Destroy(subButtonInstance);
-            subButtonInstance = Instantiate(subButton, new Vector3(-50, locationY - (40 * (inputNum)), 0), Quaternion.identity) as GameObject;
-            subButtonInstance.transform.SetParent(UI, false);
-            subButtonInstance.GetComponent<Button>().onClick.AddListener(subButtonClick);
-        }
-        else
+        
+        if (inputNum<=2)
         {
             subButtonInstance.SetActive(false);
         }
