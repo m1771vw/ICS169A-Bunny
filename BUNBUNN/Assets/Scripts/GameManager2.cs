@@ -94,16 +94,22 @@ public class GameManager2 : MonoBehaviour
             {
                 if(totalObjectCount != 0)
                 {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.startingObjectList[totalObjectCount - 1]);
+
                     int random = Random.Range(0, (localData.numberOfPlayers));
                     Vector3 direction = new Vector3();
                     direction = portalList[random].transform.position - centerOfScreen.transform.position;
                     direction.Normalize();
-                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position + direction , Quaternion.identity) as GameObject;
+                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position - (direction*2) , Quaternion.identity) as GameObject;                   
                     totalObjectCount--;
                     spawnCounter++;
                 }                
             }
             spawnTime -= spawnTimeIntervalForDecrementing;
+        }
+        else
+        {
+            spawnPortalObjects();
         }
 
 
