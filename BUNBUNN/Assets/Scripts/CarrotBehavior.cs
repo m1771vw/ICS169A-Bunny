@@ -5,6 +5,7 @@ public class CarrotBehavior : MonoBehaviour
 {
     private GameObject dataObject;
     private LocalMultiplayerGameData localData;
+    public GameObject pointsGainedObject;
     // Use this for initialization
     void Start()
     {
@@ -17,10 +18,14 @@ public class CarrotBehavior : MonoBehaviour
     {
 
     }
+
+
+
     void OnMouseDown()
     {
         localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
         this.gameObject.SetActive(false);
+        Instantiate(pointsGainedObject, transform.position, Quaternion.identity);
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -215,4 +220,6 @@ public class CarrotBehavior : MonoBehaviour
             }
         }
     }
+
+
 }
