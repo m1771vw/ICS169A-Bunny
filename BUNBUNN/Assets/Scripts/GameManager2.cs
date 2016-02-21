@@ -40,11 +40,14 @@ public class GameManager2 : MonoBehaviour
     /// </summary>
     void Start()
     {
+        
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
         timer = timeObject.GetComponent<Timer>();
 
+        localData.currentPlayerColor = localData.playerData[localData.currentPlayer].color;
+        PlayerSetup();
         calculateTotalObjectCount();
         
 
@@ -64,7 +67,7 @@ public class GameManager2 : MonoBehaviour
         }
 
         setSpawnTimeIntervalForDecrementing();
-        PlayerSetup();
+        
         sceneSetup();
     }
 
@@ -117,7 +120,7 @@ public class GameManager2 : MonoBehaviour
 
 
 
-        spawnPortalObjects();
+        //spawnPortalObjects();
     }
 
     void setSpawnTimeIntervalForDecrementing()
@@ -408,7 +411,6 @@ public class GameManager2 : MonoBehaviour
 
     //place object back on to the scene
     //color them the corresponding color (if white player is up his leftovers are HIS color)
-    //clear the list to start from zero
     void sceneSetup()
     {
         Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer, rightWall.transform.position.x - spawnLocationBuffer),
@@ -458,7 +460,6 @@ public class GameManager2 : MonoBehaviour
                 colorChanger.color = gray;
             }
         }
-        localData.playerData[localData.currentPlayer].currentSceneObjects.Clear();
     }
 
     void spawnPortalObjects()

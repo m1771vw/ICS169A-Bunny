@@ -26,6 +26,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
     public int playerIndex;
     public int startingCarrots;
     public int startingTrash;
+    public string currentPlayerColor;
     public List<GameObject> startingObjectList = new List<GameObject>();
 
 

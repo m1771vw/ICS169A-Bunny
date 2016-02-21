@@ -88,7 +88,7 @@ public class Timer : MonoBehaviour
 
             float newTime = Mathf.Floor(curTime * 100.0f + 0.5f) / 100;
             
-            Debug.Log(newTime);
+            // Debug.Log(newTime);
             timeTF.text = newTime.ToString("F2");
         }
         else

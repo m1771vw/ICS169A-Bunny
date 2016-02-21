@@ -18,196 +18,223 @@ public class TrashBehavior : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (localData.playerData[localData.currentPlayer].color == "White")
+        if (localData != null)
         {
-            if (col.gameObject.tag == "Player1")
+            if (localData.currentPlayerColor == "White")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[0].player1PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
+                if (col.gameObject.tag == "Player1")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[0].player1PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[1].player1PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[2].player1PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[3].player1PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[4].player1PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player2")
+            if (localData.currentPlayerColor == "Red")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[1].player1PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
+                if (col.gameObject.tag == "Player1")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[0].player2PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[1].player2PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[2].player2PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[3].player2PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[4].player2PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player3")
+            if (localData.currentPlayerColor == "Yellow")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[2].player1PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
+                if (col.gameObject.tag == "Player1")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[0].player3PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[1].player3PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[2].player3PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[3].player3PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[4].player3PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player4")
+            if (localData.currentPlayerColor == "Blue")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[3].player1PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
+                if (col.gameObject.tag == "Player1")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[0].player4PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[1].player4PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[2].player4PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[3].player4PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[4].player4PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player5")
+            if (localData.currentPlayerColor == "Gray")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[4].player1PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "Red")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[0].player2PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[1].player2PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[2].player2PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[3].player2PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[4].player2PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "Yellow")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[0].player3PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[1].player3PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[2].player3PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[3].player3PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[4].player3PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "Blue")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[0].player4PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[1].player4PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[2].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[3].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[4].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "Gray")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[0].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[1].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[2].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[3].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-                localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
-                localData.playerData[4].player5PortalContents.Add(gameObject);
-                this.gameObject.SetActive(false);
+                if (col.gameObject.tag == "Player1")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[0].player5PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[1].player5PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[2].player5PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[3].player5PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    int random = Random.Range(0, localData.trashList.Count);
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                    localData.playerData[localData.currentPlayer].score += localData.trashScoreWorth;
+                    localData.playerData[4].player5PortalContents.Add(localData.trashList[random]);
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
-
 }

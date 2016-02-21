@@ -24,202 +24,204 @@ public class CarrotBehavior : MonoBehaviour
     void OnMouseDown()
     {
         localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
-        this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
         Instantiate(pointsGainedObject, transform.position, Quaternion.identity);
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (localData.playerData[localData.currentPlayer].color == "White")
+        if (localData != null)
         {
-            if (col.gameObject.tag == "Player1")
+            if (localData.currentPlayerColor == "White")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                if (col.gameObject.tag == "Player1")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
-                localData.playerData[0].player1PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
+                    localData.playerData[0].player1PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[1].player1PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[2].player1PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[3].player1PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[4].player1PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player2")
+            if (localData.currentPlayerColor == "Red")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                if (col.gameObject.tag == "Player1")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
-                localData.playerData[1].player1PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
+                    localData.playerData[0].player2PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[1].player2PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[2].player2PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[3].player2PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[4].player2PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player3")
+            if (localData.currentPlayerColor == "Yellow")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                if (col.gameObject.tag == "Player1")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
-                localData.playerData[2].player1PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
+                    localData.playerData[0].player3PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[1].player3PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[2].player3PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[3].player3PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[4].player3PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player4")
+            if (localData.currentPlayerColor == "Blue")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                if (col.gameObject.tag == "Player1")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
-                localData.playerData[3].player1PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
+                    localData.playerData[0].player4PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[1].player4PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[2].player4PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[3].player4PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[4].player4PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
             }
-            else if (col.gameObject.tag == "Player5")
+            if (localData.currentPlayerColor == "Gray")
             {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+                if (col.gameObject.tag == "Player1")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
-                localData.playerData[4].player1PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
+                    localData.playerData[0].player5PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player2")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[1].player5PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player3")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[2].player5PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player4")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[3].player5PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
+                else if (col.gameObject.tag == "Player5")
+                {
+                    localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
+
+                    localData.playerData[4].player5PortalContents.Add(localData.carrot);
+                    Destroy(this.gameObject);
+                }
             }
         }
-        if (localData.playerData[localData.currentPlayer].color == "Red")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
-                localData.playerData[0].player2PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[1].player2PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[2].player2PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[3].player2PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[4].player2PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "Yellow")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[0].player3PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[1].player3PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[2].player3PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[3].player3PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[4].player3PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "Blue")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[0].player4PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[1].player4PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[2].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[3].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[4].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
-        if (localData.playerData[localData.currentPlayer].color == "White")
-        {
-            if (col.gameObject.tag == "Player1")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[0].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player2")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[1].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player3")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[2].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player4")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[3].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-            else if (col.gameObject.tag == "Player5")
-            {
-                localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
-
-                localData.playerData[4].player5PortalContents.Add(this.gameObject);
-                this.gameObject.SetActive(false);
-            }
-        }
     }
-
-
 }
