@@ -4,16 +4,41 @@ using System.Collections;
 public class TrashBehavior : MonoBehaviour {
     private GameObject dataObject;
     private LocalMultiplayerGameData localData;
+    private Timer timer;
+    private float startTime;
+    private float growthInterval = .02f;
     // Use this for initialization
     void Start () {
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
+        dataObject = GameObject.Find("Timer");
+        timer = dataObject.GetComponent<Timer>();
+        startTime = timer.getTime();
+
+
         localData.playerData[localData.currentPlayer].score -= localData.trashScoreWorth;
+        
+
+
+
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+    {
+        //Debug.Log(decimal.Round((decimal)(startTime - timer.getTime()), 2));
+        if ( decimal.Round((decimal)(startTime - timer.getTime()), 2) >= (decimal)growthInterval)
+        {
+            this.gameObject.transform.localScale += new Vector3(.015f, .015f, 0);
+            growthInterval += .02f;
+            if (decimal.Round((decimal)(startTime - timer.getTime()), 2) > 1)
+            {
+                growthInterval = 9999;
+            }
+        }
+    
+
+	    
 	}
 
     void OnCollisionEnter2D(Collision2D col)
