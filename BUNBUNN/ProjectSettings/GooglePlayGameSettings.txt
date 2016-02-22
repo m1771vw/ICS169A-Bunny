@@ -1,0 +1,9 @@
+lastUpgrade=00930
+proj.AppId=58798942346
+and.BundleId=com.Nimble.Bunbunn
+proj.classDir=Assets
+proj.ConstantsClassName=ProjectBun
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e58798942346%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.Nimble.Bunbunn%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_connected_online%22%3eCgkIitHChdsBEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_incremental_acheivement%22%3eCgkIitHChdsBEAIQAg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_3%22%3eCgkIitHChdsBEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_4%22%3eCgkIitHChdsBEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_5%22%3eCgkIitHChdsBEAIQBQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_completed_tutorial%22%3eCgkIitHChdsBEAIQBw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_bunbun_leaderboard%22%3eCgkIitHChdsBEAIQBg%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
+and.ClientId=58798942346-r0i8vivc1m6gijcujk47l9ugds5kkojc.apps.googleusercontent.com
+proj.requireGPlus=false
+android.SetupDone=true

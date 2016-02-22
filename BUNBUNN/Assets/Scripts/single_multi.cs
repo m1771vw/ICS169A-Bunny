@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using GooglePlayGames;
 using System.Collections;
 using UnityEngine.SceneManagement;
 public class single_multi : MonoBehaviour
 {
     public Canvas quitMenu;
+    public string LoggingInAcheivment = "CgkIitHChdsBEAIQAQ";
     public Button PlaySingle;
     public Button exitText;
     public Button PlayMulti;
     public GameObject SinglePlayer;
     public GameObject Multi;
     public GameObject Quit;
-
+    //public PlayGames GPlay = GameObje
+    PlayGames Gplay = new PlayGames();
 
     void Start()
     {
+        PlayGamesPlatform.Activate();
+        Gplay.LogIn();
+        Gplay.AddAcheivements(LoggingInAcheivment);
         quitMenu = quitMenu.GetComponent<Canvas>();
         exitText = exitText.GetComponent<Button>();
         PlaySingle = PlaySingle.GetComponent<Button>();
