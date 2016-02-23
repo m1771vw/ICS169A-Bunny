@@ -1,4 +1,4 @@
-lastUpgrade=00930
+lastUpgrade=00931
 proj.AppId=58798942346
 and.BundleId=com.Nimble.Bunbunn
 proj.classDir=Assets

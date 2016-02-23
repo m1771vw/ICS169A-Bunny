@@ -7,6 +7,7 @@ public class PlayGames : MonoBehaviour
     #region PUBLIC_VAR
     private string leaderboard = "CgkIitHChdsBEAIQBg";
     //achievement strings
+    int topscore;
     //private string achievement = "CgkIitHChdsBEAIQAQ";
     private string incremental = "CgkIitHChdsBEAIQAg";
     #endregion
@@ -45,11 +46,11 @@ public class PlayGames : MonoBehaviour
     /// <summary>
     /// Add Acheivments
     /// </summary>
-    public void AddAcheivements(string acheivment)
+    public void AddAcheivements(string acheivments)
     {
         if (Social.localUser.authenticated)
         {
-            Social.ReportProgress(acheivment, 100.0f, (bool success) =>
+            Social.ReportProgress(acheivments, 100.0f, (bool success) =>
             {
                 if (success)
                 {
@@ -68,7 +69,7 @@ public class PlayGames : MonoBehaviour
     public void OnShowLeaderBoard()
     {
         //Social.ShowLeaderboardUI(); // Show all leaderboard
-        ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI("CgkIitHChdsBEAIQBg"); // Show current (Active) leaderboard
+        ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI("CgkIitHChdsBEAIQCA"); // Show current (Active) leaderboard
     }
     public void showAchiev()
     {
@@ -77,15 +78,17 @@ public class PlayGames : MonoBehaviour
     /// <summary>
     /// Adds Score To leader board
     /// </summary>
-    public void OnAddScoreToLeaderBorad()
+    //int scores = PlayerPrefs.GetInt("scores",200);
+    public void OnAddScoreToLeaderBorad(int score)
     {
+        PlayGamesPlatform.Activate();
         if (Social.localUser.authenticated)
         {
-            Social.ReportScore(5000, "CgkIitHChdsBEAIQBg", (bool success) =>
+            Social.ReportScore(score, "CgkIitHChdsBEAIQCA", (bool success) =>
             {
                 if (success)
                 {
-                    ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI("CgkIitHChdsBEAIQBg");
+                    ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI("CgkIitHChdsBEAIQCA");
                 }
                 else
                 {

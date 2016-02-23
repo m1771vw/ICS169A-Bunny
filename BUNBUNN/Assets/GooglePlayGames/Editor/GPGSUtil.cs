@@ -13,6 +13,9 @@
 //  See the License for the specific language governing permissions and
 //    limitations under the License.
 // </copyright>
+// Keep this even if NO_GPGS is defined so we can clean up the project
+// post build.
+#if (UNITY_ANDROID || UNITY_IPHONE)
 
 namespace GooglePlayGames.Editor
 {
@@ -638,3 +641,4 @@ namespace GooglePlayGames.Editor
         }
     }
 }
+#endif

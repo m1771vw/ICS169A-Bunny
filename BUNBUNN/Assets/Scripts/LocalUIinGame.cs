@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LocalUIinGame : MonoBehaviour
 {
@@ -24,6 +25,6 @@ public class LocalUIinGame : MonoBehaviour
     }
     public void BackButtonPress()
     {
-        Application.LoadLevel("single-multi");
+        SceneManager.LoadScene("single-multi");
     }
 }

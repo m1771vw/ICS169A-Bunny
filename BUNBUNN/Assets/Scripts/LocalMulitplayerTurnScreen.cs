@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using GooglePlayGames;
+
 public class LocalMulitplayerTurnScreen : MonoBehaviour
 {
     public Text topScore, topPlayer, playerTurn;
     private GameObject dataObject;
     private LocalMultiplayerGameData localData;
+    public string firstimeAchievment = "CgkIitHChdsBEAIQAw";
+    PlayGames Gplay = new PlayGames();
     // Use this for initialization
     void Start()
     {
+
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
 
@@ -34,6 +39,6 @@ public class LocalMulitplayerTurnScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+  
     }
 }

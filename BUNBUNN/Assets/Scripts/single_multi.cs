@@ -13,20 +13,23 @@ public class single_multi : MonoBehaviour
     public GameObject SinglePlayer;
     public GameObject Multi;
     public GameObject Quit;
-    //public PlayGames GPlay = GameObje
     PlayGames Gplay = new PlayGames();
 
     void Start()
     {
         PlayGamesPlatform.Activate();
         Gplay.LogIn();
-        Gplay.AddAcheivements(LoggingInAcheivment);
+        //Gplay.AddAcheivements(LoggingInAcheivment);
         quitMenu = quitMenu.GetComponent<Canvas>();
         exitText = exitText.GetComponent<Button>();
         PlaySingle = PlaySingle.GetComponent<Button>();
         //PlayMulti = PlayMulti.GetComponent<Button>();
         quitMenu.enabled = false;
 
+    }
+    void Update()
+    {
+        Gplay.AddAcheivements(LoggingInAcheivment);
     }
     public void exitPress()
     {
