@@ -9,8 +9,9 @@ public class PortalPathing : MonoBehaviour
     public float percentsPerSecond = 0.10f; // %2 of the path moved per second
     public float currentPathPercent = 1.0f; //min 0, max 1
     public bool inReverse = false;
-    public Vector3 center;
+    public GameObject center;
     public Transform target;
+    public float rotateSpeedx, rotateSpeedy, rotateSpeedz;
 
     /// <summary>
     /// set current array we are going to flip back and forth from the reverse array to the normal path array so the object patrols
@@ -39,9 +40,16 @@ public class PortalPathing : MonoBehaviour
         }
         //transform.LookAt(target);
         ///point objects at the center of the screen
-        Vector3 dir = center - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        /*
+        Vector3 vectorToTarget = center.transform.position - transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, q, Time.deltaTime * rotateSpeed);
+        */
+
+
+        ///COIN transform.Rotate(Vector3.up * Time.deltaTime*rotateSpeed); 
+        transform.Rotate(rotateSpeedx * Time.deltaTime, rotateSpeedy * Time.deltaTime, rotateSpeedz * Time.deltaTime);
     }
 
     void OnDrawGizmos()

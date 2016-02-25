@@ -8,7 +8,7 @@ public class InkBehavior : MonoBehaviour
     private Timer timer;
     private float startTime;
     private float growthInterval = .02f;
-    public int lifeTime = 3;
+    public int lifeTime = 2;
     // Use this for initialization
     void Start()
     {
@@ -29,7 +29,7 @@ public class InkBehavior : MonoBehaviour
         //Debug.Log(decimal.Round((decimal)(startTime - timer.getTime()), 2));
         if (decimal.Round((decimal)(startTime - timer.getTime()), 2) >= (decimal)growthInterval)
         {
-            this.gameObject.transform.localScale += new Vector3(1f, 1f, 0);
+            this.gameObject.transform.localScale += new Vector3(.5f, .5f, 0);
             growthInterval += .02f;
             if (decimal.Round((decimal)(startTime - timer.getTime()), 2) > 1)
             {

@@ -185,7 +185,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("single-multi"))
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
         {
             Destroy(this.gameObject);
         }

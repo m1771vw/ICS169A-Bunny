@@ -35,6 +35,11 @@ public class GameManager2 : MonoBehaviour
     public float spawnTimeIntervalForDecrementing = 0; 
     public int spawnCounter;
 
+    void Awake()
+    {
+
+    }
+
     /// <summary>
     /// Local data connects to the multiplayer data
     /// using that data the creation of the inital play space is made
@@ -53,24 +58,25 @@ public class GameManager2 : MonoBehaviour
         calculateTotalObjectCount();
         
 
-        if (localData.currentRound == 1)
-        {
-            timer.setMaxTime(firstRoundStartTime);
-            totalObjectCount = localData.startingObjectList.Count;
+        //if (localData.currentRound == 1)
+        //{
+        //    timer.setStartTime(firstRoundStartTime);
+        //    totalObjectCount = localData.startingObjectList.Count;
             
-        }
-        else if (localData.currentRound == 2)
-        {
-            timer.setMaxTime(secondRoundStartTime);
-        }
-        else
-        {
-            timer.setMaxTime(thirdRoundStartTime);
-        }
+        //}
+        //else if (localData.currentRound == 2)
+        //{
+        //    timer.setStartTime(secondRoundStartTime);
+        //}
+        //else
+        //{
+        //    timer.setStartTime(thirdRoundStartTime);
+        //}
 
         setSpawnTimeIntervalForDecrementing();
         
         sceneSetup();
+        setTimer();
     }
 
     // Update is called once per frame
@@ -128,6 +134,24 @@ public class GameManager2 : MonoBehaviour
 
 
         //spawnPortalObjects();
+    }
+
+    void setTimer()
+    {
+        if (localData.currentRound == 1)
+        {
+            timer.setStartTime(firstRoundStartTime);
+            totalObjectCount = localData.startingObjectList.Count;
+
+        }
+        else if (localData.currentRound == 2)
+        {
+            timer.setStartTime(secondRoundStartTime);
+        }
+        else
+        {
+            timer.setStartTime(thirdRoundStartTime);
+        }
     }
 
     void setSpawnTimeIntervalForDecrementing()
@@ -420,7 +444,7 @@ public class GameManager2 : MonoBehaviour
     //color them the corresponding color (if white player is up his leftovers are HIS color)
     void sceneSetup()
     {
-        Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer, rightWall.transform.position.x - spawnLocationBuffer),
+        Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer + 100, rightWall.transform.position.x - spawnLocationBuffer),
                                            Random.Range(topWall.transform.position.y - spawnLocationBuffer, bottomWall.transform.position.y + spawnLocationBuffer));
         if (localData.playerData[localData.currentPlayer].color == "White")
         {
