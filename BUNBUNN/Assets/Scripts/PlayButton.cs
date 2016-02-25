@@ -15,7 +15,10 @@ public class PlayButton : MonoBehaviour {
             {
                 
                 inputNum++;
-                data.playerData[i].realColor = playerBalls[i].GetComponent<SpriteRenderer>().color;
+                Color tempColor = new Color();
+                tempColor = playerBalls[i].GetComponent<SpriteRenderer>().color;
+                data.playerData[i].realColor = tempColor;
+                Debug.Log(data.playerData[i].realColor);
             }
         }
 

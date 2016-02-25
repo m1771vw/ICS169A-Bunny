@@ -14,11 +14,16 @@ public class Timer : MonoBehaviour
     private float curTime;
     private Image timerPie;
 
+    void Awake()
+    {
+        timerPie = GameObject.Find("TimerPie").GetComponent<Image>();
+        timeStart = GameObject.Find("Timer").GetComponent<Text>();
+        timeStart.text = ((int)timeTF).ToString();
+    }
+
     public void Start()
     {
 
-        timerPie = GameObject.Find("TimerPie").GetComponent<Image>();
-        timeStart = GameObject.Find("Timer").GetComponent<Text>();
 
         //InvokeRepeating("ReduceTime", 1, 1);
 
@@ -46,9 +51,9 @@ public class Timer : MonoBehaviour
     {
         timeTF = number;
         maxTime = number;
+        Debug.Log("max time: "+maxTime);
         curTime = number;
-
-        timeStart.text = ((int)timeTF).ToString();
+        Debug.Log(timeTF);
     }
 
     public void Update()

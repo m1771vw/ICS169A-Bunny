@@ -26,11 +26,11 @@ public class GameManager2 : MonoBehaviour
     public int bombCount = 0;
     public int bombCap = 3;
     public SpriteRenderer colorChanger;
-    public Color white = new Color(255, 255, 255);
-    public Color red = new Color(255, 0, 0);
-    public Color yellow = new Color(255, 255, 0);
-    public Color blue = new Color(0, 0, 255);
-    public Color gray = new Color(0.5f, 0.5f, 0.5f, 1f);
+    public Color player1Color = new Color(255, 255, 255);
+    public Color player2Color = new Color(255, 0, 0);
+    public Color player3Color = new Color(255, 255, 0);
+    public Color player4Color = new Color(0, 0, 255);
+    public Color player5Color = new Color(0.5f, 0.5f, 0.5f, 1f);
     public List<GameObject> portalList = new List<GameObject>();
     public float spawnTimeIntervalForDecrementing = 0; 
     public int spawnCounter;
@@ -47,22 +47,42 @@ public class GameManager2 : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
         timer = timeObject.GetComponent<Timer>();
+        
 
         localData.currentPlayerColor = localData.playerData[localData.currentPlayer].color;
+
+        if (localData.numberOfPlayers >= 1)
+        {
+            player1Color = localData.playerData[0].realColor;
+            player2Color = localData.playerData[1].realColor;
+        }
+        else if (localData.numberOfPlayers >= 2)
+        {
+            player3Color = localData.playerData[2].realColor;
+        }
+        else if (localData.numberOfPlayers >= 3)
+        {
+            player4Color = localData.playerData[3].realColor;
+        }
+        else if (localData.numberOfPlayers >= 4)
+        {
+            player5Color = localData.playerData[4].realColor;
+        }
+
+
         PlayerSetup();
         calculateTotalObjectCount();
-        
+        setTimer();
 
         //if (localData.currentRound == 1)
         //{
         //    timer.setStartTime(firstRoundStartTime);
-        //    totalObjectCount = localData.startingObjectList.Count;
-            
+        //    
+
         //}
         //else if (localData.currentRound == 2)
         //{
@@ -72,11 +92,11 @@ public class GameManager2 : MonoBehaviour
         //{
         //    timer.setStartTime(thirdRoundStartTime);
         //}
-
+        Debug.Log("time  " + timer.maxTime + "object count   " + totalObjectCount);
         setSpawnTimeIntervalForDecrementing();
         
         sceneSetup();
-        setTimer();
+        
     }
 
     // Update is called once per frame
@@ -142,6 +162,7 @@ public class GameManager2 : MonoBehaviour
         {
             timer.setStartTime(firstRoundStartTime);
             totalObjectCount = localData.startingObjectList.Count;
+            
 
         }
         else if (localData.currentRound == 2)
@@ -152,12 +173,17 @@ public class GameManager2 : MonoBehaviour
         {
             timer.setStartTime(thirdRoundStartTime);
         }
+        spawnTime = timer.maxTime;
     }
 
     void setSpawnTimeIntervalForDecrementing()
     {
         float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers -1);
+        Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
+        Debug.Log("temp " + temp);
         spawnTimeIntervalForDecrementing = (float)timer.maxTime / (float)temp;
+        Debug.Log("time max " + timer.maxTime);
+        Debug.Log(spawnTimeIntervalForDecrementing);
     }
 
     void calculateTotalObjectCount()
@@ -187,6 +213,7 @@ public class GameManager2 : MonoBehaviour
             totalObjectCount = localData.playerData[localData.currentPlayer].player1PortalContents.Count + localData.playerData[localData.currentPlayer].player2PortalContents.Count
                 + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count;
         }
+        Debug.Log("in clac object" + totalObjectCount);
 
     }
 
@@ -206,7 +233,7 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 Destroy(rightPortal.GetComponent<Collider2D>());
                 Destroy(rightPortal.GetComponent<SpriteRenderer>());
                 Destroy(botPortal.GetComponent<Collider2D>());
@@ -218,10 +245,10 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 Destroy(botPortal.GetComponent<Collider2D>());
                 Destroy(botPortal.GetComponent<SpriteRenderer>());
                 Destroy(leftPortal.GetComponent<Collider2D>());
@@ -231,13 +258,13 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 Destroy(leftPortal.GetComponent<Collider2D>());
                 Destroy(leftPortal.GetComponent<SpriteRenderer>());
 
@@ -246,16 +273,16 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 leftPortal.tag = "Player5";
                 colorChanger = leftPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
             }
         }
             /*
@@ -270,7 +297,7 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player1";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 Destroy(rightPortal.GetComponent<Collider2D>());
                 Destroy(rightPortal.GetComponent<SpriteRenderer>());
                 Destroy(botPortal.GetComponent<Collider2D>());
@@ -282,10 +309,10 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player1";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 Destroy(botPortal.GetComponent<Collider2D>());
                 Destroy(botPortal.GetComponent<SpriteRenderer>());
                 Destroy(leftPortal.GetComponent<Collider2D>());
@@ -295,13 +322,13 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player1";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 Destroy(leftPortal.GetComponent<Collider2D>());
                 Destroy(leftPortal.GetComponent<SpriteRenderer>());
 
@@ -310,16 +337,16 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player1";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 leftPortal.tag = "Player5";
                 colorChanger = leftPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
             }
         }
             /*
@@ -334,10 +361,10 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player1";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 Destroy(botPortal.GetComponent<Collider2D>());
                 Destroy(botPortal.GetComponent<SpriteRenderer>());
                 Destroy(leftPortal.GetComponent<Collider2D>());
@@ -347,13 +374,13 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player1";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 Destroy(leftPortal.GetComponent<Collider2D>());
                 Destroy(leftPortal.GetComponent<SpriteRenderer>());
 
@@ -362,16 +389,16 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player1";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 leftPortal.tag = "Player5";
                 colorChanger = leftPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
             }
         }
             /*
@@ -386,13 +413,13 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player1";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 Destroy(leftPortal.GetComponent<Collider2D>());
                 Destroy(leftPortal.GetComponent<SpriteRenderer>());
 
@@ -401,16 +428,16 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player1";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 leftPortal.tag = "Player5";
                 colorChanger = leftPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
             }
         }
             /*
@@ -425,23 +452,23 @@ public class GameManager2 : MonoBehaviour
             {
                 topPortal.tag = "Player2";
                 colorChanger = topPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 rightPortal.tag = "Player3";
                 colorChanger = rightPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 botPortal.tag = "Player4";
                 colorChanger = botPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 leftPortal.tag = "Player1";
                 colorChanger = leftPortal.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
             }
         }
     }
 
 
     //place object back on to the scene
-    //color them the corresponding color (if white player is up his leftovers are HIS color)
+    //color them the corresponding color (if player1Color player is up his leftovers are HIS color)
     void sceneSetup()
     {
         Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer + 100, rightWall.transform.position.x - spawnLocationBuffer),
@@ -452,7 +479,7 @@ public class GameManager2 : MonoBehaviour
             {
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
             }
         }
         else if (localData.playerData[localData.currentPlayer].color == "Red")
@@ -461,7 +488,7 @@ public class GameManager2 : MonoBehaviour
             {
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
             }
         }
         else if (localData.playerData[localData.currentPlayer].color == "Yellow")
@@ -470,7 +497,7 @@ public class GameManager2 : MonoBehaviour
             {
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
             }
         }
         else if (localData.playerData[localData.currentPlayer].color == "Blue")
@@ -479,7 +506,7 @@ public class GameManager2 : MonoBehaviour
             {
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
             }
         }
         else if (localData.playerData[localData.currentPlayer].color == "Gray")
@@ -488,7 +515,7 @@ public class GameManager2 : MonoBehaviour
             {
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].currentSceneObjects[i], location, Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
             }
         }
     }
@@ -506,7 +533,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
             }
@@ -518,7 +545,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
             }
@@ -530,7 +557,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
             }
@@ -542,7 +569,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
@@ -559,7 +586,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
             }
@@ -571,7 +598,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
             }
@@ -583,7 +610,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
             }
@@ -595,7 +622,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
@@ -612,7 +639,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
             }
@@ -624,7 +651,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
             }
@@ -636,7 +663,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = blue;
+                colorChanger.color = player4Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
             }
@@ -648,7 +675,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
@@ -665,7 +692,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
             }
@@ -677,7 +704,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
             }
@@ -689,7 +716,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
             }
@@ -701,7 +728,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player5PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player5PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player5PortalContents.RemoveAt(0);
             }
@@ -718,7 +745,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player1PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = white;
+                colorChanger.color = player1Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player1PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player1PortalContents.RemoveAt(0);
             }
@@ -730,7 +757,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player2PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = red;
+                colorChanger.color = player2Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player2PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player2PortalContents.RemoveAt(0);
             }
@@ -742,7 +769,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player3PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = yellow;
+                colorChanger.color = player3Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player3PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player3PortalContents.RemoveAt(0);
             }
@@ -754,7 +781,7 @@ public class GameManager2 : MonoBehaviour
                 location += location;
                 GameObject node = Instantiate(localData.playerData[localData.currentPlayer].player4PortalContents[0], transform.position + (transform.forward * 2), Quaternion.identity) as GameObject;
                 colorChanger = node.GetComponent<SpriteRenderer>();
-                colorChanger.color = gray;
+                colorChanger.color = player5Color;
                 localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.playerData[localData.currentPlayer].player4PortalContents[0]);
                 localData.playerData[localData.currentPlayer].player4PortalContents.RemoveAt(0);
             }

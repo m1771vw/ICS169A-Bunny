@@ -95,6 +95,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
         {
             PlayerData newData = new PlayerData();
             playerData.Add(newData);
+            playerData[i].realColor = new Color(255, 255, 255);
 
             if (numberOfPlayers >= 2)
             {

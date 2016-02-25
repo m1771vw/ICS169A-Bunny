@@ -33,7 +33,7 @@ public class PlayerNumBall : MonoBehaviour
     {
         if (col.gameObject.name.Contains("x"))
         {
-            Debug.Log("x found");
+            //Debug.Log("x found");
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), col.gameObject.GetComponent<Collider2D>());
         }
         if (GetComponent<SpriteRenderer>().color==Color.white)
