@@ -11,7 +11,8 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// current player goes from 0 to 4 for ease in arrays and lists
     /// </summary>
     public GameObject carrot;
-    public GameObject trash;
+    public GameObject bomb;
+    public GameObject ink;
     public List<GameObject> trashList = new List<GameObject>();
     public int numberOfPlayers = 2;
     public int currentPlayer = 0;

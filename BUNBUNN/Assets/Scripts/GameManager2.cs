@@ -23,6 +23,8 @@ public class GameManager2 : MonoBehaviour
     public int portalSpawnBuffer = 10;
     public int startingTrashCount;
     public int startingCarrotCount;
+    public int bombCount = 0;
+    public int bombCap = 3;
     public SpriteRenderer colorChanger;
     public Color white = new Color(255, 255, 255);
     public Color red = new Color(255, 0, 0);
@@ -113,9 +115,14 @@ public class GameManager2 : MonoBehaviour
             }
             spawnTime -= spawnTimeIntervalForDecrementing;
         }
-        else
+        else if(localData.currentRound == 2)
         {
             spawnPortalObjects();
+            if (bombCount != bombCap)
+            {
+                GameObject node = Instantiate(localData.bomb, centerOfScreen.transform.position, Quaternion.identity) as GameObject;
+                bombCount++;
+            }
         }
 
 
