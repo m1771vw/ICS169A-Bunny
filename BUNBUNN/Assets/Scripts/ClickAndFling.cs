@@ -64,4 +64,8 @@ public class ClickAndFling : MonoBehaviour
 
     }
 
+    void OnDisable()
+    {
+        Destroy(spring);
+    }
 }
