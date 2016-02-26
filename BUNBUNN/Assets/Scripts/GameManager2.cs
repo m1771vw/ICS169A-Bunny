@@ -54,7 +54,7 @@ public class GameManager2 : MonoBehaviour
         
 
         localData.currentPlayerColor = localData.playerData[localData.currentPlayer].color;
-
+        /*
         if (localData.numberOfPlayers >= 1)
         {
             player1Color = localData.playerData[0].realColor;
@@ -71,27 +71,13 @@ public class GameManager2 : MonoBehaviour
         else if (localData.numberOfPlayers >= 4)
         {
             player5Color = localData.playerData[4].realColor;
-        }
+        }*/
 
 
         PlayerSetup();
         calculateTotalObjectCount();
         setTimer();
 
-        //if (localData.currentRound == 1)
-        //{
-        //    timer.setStartTime(firstRoundStartTime);
-        //    
-
-        //}
-        //else if (localData.currentRound == 2)
-        //{
-        //    timer.setStartTime(secondRoundStartTime);
-        //}
-        //else
-        //{
-        //    timer.setStartTime(thirdRoundStartTime);
-        //}
         Debug.Log("time  " + timer.maxTime + "object count   " + totalObjectCount);
         setSpawnTimeIntervalForDecrementing();
         
@@ -118,9 +104,10 @@ public class GameManager2 : MonoBehaviour
             }
         }
 
+        Debug.Log(spawnTime);
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
-            
+            Debug.Log("spawn");
             for(int i = 0; i < localData.numberOfPlayers - 1; i++)
             {
                 if(totalObjectCount != 0)
@@ -173,7 +160,7 @@ public class GameManager2 : MonoBehaviour
         {
             timer.setStartTime(thirdRoundStartTime);
         }
-        spawnTime = timer.maxTime;
+        spawnTime = timer.maxTime - (float).5f;
     }
 
     void setSpawnTimeIntervalForDecrementing()
@@ -471,7 +458,7 @@ public class GameManager2 : MonoBehaviour
     //color them the corresponding color (if player1Color player is up his leftovers are HIS color)
     void sceneSetup()
     {
-        Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer + 100, rightWall.transform.position.x - spawnLocationBuffer),
+        Vector2 location = new Vector2(Random.Range(leftWall.transform.position.x + spawnLocationBuffer, rightWall.transform.position.x - spawnLocationBuffer),
                                            Random.Range(topWall.transform.position.y - spawnLocationBuffer, bottomWall.transform.position.y + spawnLocationBuffer));
         if (localData.playerData[localData.currentPlayer].color == "White")
         {
@@ -524,10 +511,9 @@ public class GameManager2 : MonoBehaviour
     {
         if (localData.playerData[localData.currentPlayer].color == "White" && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
-
+            //Debug.Log("spawn from portal");
             if (localData.playerData[localData.currentPlayer].player2PortalContents.Count != 0)
             {
-
                 Vector2 location = new Vector2();
                 location = GameObject.FindGameObjectWithTag("Player2").transform.position;
                 location += location;

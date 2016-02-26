@@ -11,7 +11,6 @@ public class PortalPathing : MonoBehaviour
     public bool inReverse = false;
     public GameObject center;
     public Transform target;
-    public float rotateSpeedx, rotateSpeedy, rotateSpeedz;
 
     /// <summary>
     /// set current array we are going to flip back and forth from the reverse array to the normal path array so the object patrols
@@ -38,18 +37,6 @@ public class PortalPathing : MonoBehaviour
             inReverse = false;
             currentWaypointArray = waypointArray;
         }
-        //transform.LookAt(target);
-        ///point objects at the center of the screen
-        /*
-        Vector3 vectorToTarget = center.transform.position - transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, q, Time.deltaTime * rotateSpeed);
-        */
-
-
-        ///COIN transform.Rotate(Vector3.up * Time.deltaTime*rotateSpeed); 
-        transform.Rotate(rotateSpeedx * Time.deltaTime, rotateSpeedy * Time.deltaTime, rotateSpeedz * Time.deltaTime);
     }
 
     void OnDrawGizmos()

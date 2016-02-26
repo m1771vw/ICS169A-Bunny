@@ -35,7 +35,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
     public class PlayerData
     {
         public string color;
-        public Color realColor;
+        public Color realColor = new Color();
         public int score;
         public bool lastPlayer;
         public List<GameObject> currentSceneObjects = new List<GameObject>();
@@ -95,7 +95,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
         {
             PlayerData newData = new PlayerData();
             playerData.Add(newData);
-            playerData[i].realColor = new Color(255, 255, 255);
+           // playerData[i].realColor = new Color(255, 255, 255);
 
             if (numberOfPlayers >= 2)
             {
