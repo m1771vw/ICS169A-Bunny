@@ -36,6 +36,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
     {
         public string color;
         public Color realColor = new Color();
+        public int carrotCount=0;
         public int score;
         public bool lastPlayer;
         public List<GameObject> currentSceneObjects = new List<GameObject>();

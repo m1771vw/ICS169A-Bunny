@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager2 : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class GameManager2 : MonoBehaviour
     public List<GameObject> portalList = new List<GameObject>();
     public float spawnTimeIntervalForDecrementing = 0; 
     public int spawnCounter;
+    public Text carrotCountText;
+
 
     void Awake()
     {
@@ -47,6 +50,7 @@ public class GameManager2 : MonoBehaviour
     /// </summary>
     void Start()
     {
+        carrotCountText = GameObject.Find("CarrotCountText").GetComponent<Text>();
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
@@ -103,7 +107,7 @@ public class GameManager2 : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-
+        carrotCountText.text = localData.playerData[localData.currentPlayer].carrotCount.ToString();
         Debug.Log(spawnTime);
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
