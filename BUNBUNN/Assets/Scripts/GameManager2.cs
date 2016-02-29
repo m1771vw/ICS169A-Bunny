@@ -104,10 +104,10 @@ public class GameManager2 : MonoBehaviour
             }
         }
 
-        Debug.Log(spawnTime);
+        //Debug.Log(spawnTime);
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
-            Debug.Log("spawn");
+            //Debug.Log("spawn");
             for(int i = 0; i < localData.numberOfPlayers - 1; i++)
             {
                 if(totalObjectCount != 0)
@@ -166,11 +166,11 @@ public class GameManager2 : MonoBehaviour
     void setSpawnTimeIntervalForDecrementing()
     {
         float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers -1);
-        Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
-        Debug.Log("temp " + temp);
+        //Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
+        //Debug.Log("temp " + temp);
         spawnTimeIntervalForDecrementing = (float)timer.maxTime / (float)temp;
-        Debug.Log("time max " + timer.maxTime);
-        Debug.Log(spawnTimeIntervalForDecrementing);
+        //Debug.Log("time max " + timer.maxTime);
+        //Debug.Log(spawnTimeIntervalForDecrementing);
     }
 
     void calculateTotalObjectCount()
@@ -200,7 +200,7 @@ public class GameManager2 : MonoBehaviour
             totalObjectCount = localData.playerData[localData.currentPlayer].player1PortalContents.Count + localData.playerData[localData.currentPlayer].player2PortalContents.Count
                 + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count;
         }
-        Debug.Log("in clac object" + totalObjectCount);
+        //Debug.Log("in clac object" + totalObjectCount);
 
     }
 

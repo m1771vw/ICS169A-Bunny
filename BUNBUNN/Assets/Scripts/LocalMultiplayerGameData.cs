@@ -29,13 +29,16 @@ public class LocalMultiplayerGameData : MonoBehaviour
     public int startingTrash;
     public string currentPlayerColor;
     public List<GameObject> startingObjectList = new List<GameObject>();
+    private int maxScore, minScore;
 
 
     [System.Serializable]
     public class PlayerData
     {
+        public int racePosition;
         public string color;
         public Color realColor = new Color();
+        public int preTurnScore;
         public int score;
         public bool lastPlayer;
         public List<GameObject> currentSceneObjects = new List<GameObject>();
@@ -51,8 +54,8 @@ public class LocalMultiplayerGameData : MonoBehaviour
     /// Sets the game up for the first round of the game
     void Start()
     {
-
-
+        minScore = 0;
+        maxScore = 0;
     }
 
     /// <summary>
@@ -95,7 +98,7 @@ public class LocalMultiplayerGameData : MonoBehaviour
         {
             PlayerData newData = new PlayerData();
             playerData.Add(newData);
-           // playerData[i].realColor = new Color(255, 255, 255);
+            playerData[i].racePosition = numberOfPlayers;
 
             if (numberOfPlayers >= 2)
             {
@@ -136,19 +139,18 @@ public class LocalMultiplayerGameData : MonoBehaviour
 
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            playerData[i].score = 0;
+            playerData[i].score = trashScoreWorth * (startingTrash * numberOfPlayers);
+            playerData[i].preTurnScore = trashScoreWorth*(startingTrash * numberOfPlayers);
 
         }
         currentPlayer = 0;
         lastPlayer = numberOfPlayers - 1;
     }
-
+    
     /// <summary>
     /// for ease of lists current player goes from 0 - 4
     /// </summary>
     /// 
-
-
     public void nextPlayer()
     {
         if((currentPlayer != lastPlayer))
@@ -160,28 +162,53 @@ public class LocalMultiplayerGameData : MonoBehaviour
             currentPlayer = 0;
             currentRound++;
         }
-        /*
-        else if (currentPlayer == lastPlayer)
+    }
+
+    public int getPreviousPlayer()
+    {
+        int player = currentPlayer;
+        if(currentPlayer == 0)
         {
-            Debug.Log("round ++");
-            playerIndex = 0;
-            ++currentRound;
-            //Shuffle Player Order
-            int n = playerOrder.Count - 1;
-            while (n > 0)
-            {
-                int rng = Random.Range(0, n);
-                n--;
-                int k = rng;
-                int value = playerOrder[k];
-                playerOrder[k] = playerOrder[n];
-                playerOrder[n] = value;
-            }
+            player = numberOfPlayers -1 ;
+        }
+        else
+        {
+            player--;
+        }
+        return player;
+    }
+    /// <summary>
+    /// this score total is the total carrots and worth AND the total trash worth (not negative) in the game to create a max score
+    /// Example:
+    /// carrot = 100 points
+    /// trash = 30 points
+    /// 
+    /// 10 carrot = 1000 points
+    /// 30 trash = 900 points
+    /// max = 1900
+    /// the reason is that every trash added will subtract 30 for the score
+    /// 1870
+    /// if trash put in portal
+    /// 1900 again
+    /// 
+    /// if ALL trash is on the players screen(it wont be but if in case)
+    /// 0 would be the score
+    /// 
+    /// half of the score total is 50% on the number line
+    /// </summary>
+    /// <returns></returns>
+    public int getMaxScore()
+    {
+        int score = 0;
+        score = ((carrotScoreWorth * startingCarrots) + (trashScoreWorth * startingTrash)) * numberOfPlayers;
+        Debug.Log("Score from method > " + score);
+        return score;
+    }
 
-            currentPlayer = playerOrder[playerIndex];
-            lastPlayer = playerOrder[playerOrder.Count-1];
-        }*/
 
+    public int getMinScore()
+    {
+        return minScore;
     }
 
     // Update is called once per frame
