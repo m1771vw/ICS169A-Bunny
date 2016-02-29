@@ -14,7 +14,7 @@ public class LocalUIinGame : MonoBehaviour
     {
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
-        topScore.text = "Top Score:" + localData.topScore.ToString();
+        //topScore.text = "Top Score:" + localData.topScore.ToString();
     }
 
     // Update is called once per frame

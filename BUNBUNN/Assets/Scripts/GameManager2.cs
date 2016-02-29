@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager2 : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class GameManager2 : MonoBehaviour
     public List<GameObject> portalList = new List<GameObject>();
     public float spawnTimeIntervalForDecrementing = 0; 
     public int spawnCounter;
+    public Text carrotCountText, cleanPercentText;
+    public float hundredPercent;
 
     void Awake()
     {
@@ -47,11 +50,12 @@ public class GameManager2 : MonoBehaviour
     /// </summary>
     void Start()
     {
+        carrotCountText = GameObject.Find("CarrotCountText").GetComponent<Text>();
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
         timer = timeObject.GetComponent<Timer>();
-        
+        cleanPercentText = GameObject.Find("CleanPercentText").GetComponent<Text>();
 
         localData.currentPlayerColor = localData.playerData[localData.currentPlayer].color;
         /*
@@ -76,13 +80,14 @@ public class GameManager2 : MonoBehaviour
 
         PlayerSetup();
         calculateTotalObjectCount();
+
         setTimer();
 
         Debug.Log("time  " + timer.maxTime + "object count   " + totalObjectCount);
         setSpawnTimeIntervalForDecrementing();
         
         sceneSetup();
-        
+        hundredPercent = totalObjectCount;
     }
 
     // Update is called once per frame
@@ -103,6 +108,9 @@ public class GameManager2 : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+        
+        carrotCountText.text = localData.playerData[localData.currentPlayer].carrotCount.ToString();
+        changeCleanPercent();
 
         //Debug.Log(spawnTime);
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
@@ -141,6 +149,17 @@ public class GameManager2 : MonoBehaviour
 
 
         //spawnPortalObjects();
+    }
+
+    void changeCleanPercent()
+    {
+        float newPercent = localData.playerData[localData.currentPlayer].currentSceneObjects.Count / hundredPercent;
+        Debug.Log("curr number: "+localData.playerData[localData.currentPlayer].currentSceneObjects.Count);
+        Debug.Log("starting number: " + hundredPercent);
+        newPercent = Mathf.Floor(newPercent * 100.0f + 0.5f) / 100;
+        newPercent *= 100;
+        
+        cleanPercentText.text = (100-newPercent).ToString()+"%";
     }
 
     void setTimer()

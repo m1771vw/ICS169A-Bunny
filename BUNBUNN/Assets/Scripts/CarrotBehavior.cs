@@ -39,8 +39,10 @@ public class CarrotBehavior : MonoBehaviour
     void OnMouseDown()
     {
         localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
+        localData.playerData[localData.currentPlayer].carrotCount++;
         Destroy(this.gameObject);
         Instantiate(pointsGainedObject, transform.position, Quaternion.identity);
+
     }
     void OnCollisionEnter2D(Collision2D col)
     {
