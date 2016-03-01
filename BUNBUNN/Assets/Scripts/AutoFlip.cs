@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour {
     public FlipMode Mode;
@@ -121,5 +123,10 @@ public class AutoFlip : MonoBehaviour {
             x += dx;
         }
         ControledBook.ReleasePage();
+    }
+
+    public void BackMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
