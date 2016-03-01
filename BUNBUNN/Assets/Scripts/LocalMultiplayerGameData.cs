@@ -38,16 +38,11 @@ public class LocalMultiplayerGameData : MonoBehaviour
         public int racePosition;
         public string color;
         public Color realColor = new Color();
-<<<<<<< HEAD
-//<<<<<<< HEAD
+
         public int preTurnScore;
-//=======
+
         public int carrotCount=0;
-//>>>>>>> origin/master
-=======
-        public int preTurnScore;
-        public int carrotCount=0;
->>>>>>> origin/master
+
         public int score;
         public bool lastPlayer;
         public List<GameObject> currentSceneObjects = new List<GameObject>();
