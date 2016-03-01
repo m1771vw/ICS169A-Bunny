@@ -38,11 +38,16 @@ public class LocalMultiplayerGameData : MonoBehaviour
         public int racePosition;
         public string color;
         public Color realColor = new Color();
+<<<<<<< HEAD
 //<<<<<<< HEAD
         public int preTurnScore;
 //=======
         public int carrotCount=0;
 //>>>>>>> origin/master
+=======
+        public int preTurnScore;
+        public int carrotCount=0;
+>>>>>>> origin/master
         public int score;
         public bool lastPlayer;
         public List<GameObject> currentSceneObjects = new List<GameObject>();
@@ -143,8 +148,8 @@ public class LocalMultiplayerGameData : MonoBehaviour
 
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            playerData[i].score = trashScoreWorth * (startingTrash * numberOfPlayers);
-            playerData[i].preTurnScore = trashScoreWorth*(startingTrash * numberOfPlayers);
+            playerData[i].score = trashScoreWorth * (startingTrash * numberOfPlayers)/2;
+            playerData[i].preTurnScore = trashScoreWorth*(startingTrash * numberOfPlayers/2);
 
         }
         currentPlayer = 0;

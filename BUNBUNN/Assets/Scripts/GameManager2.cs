@@ -179,7 +179,7 @@ public class GameManager2 : MonoBehaviour
         {
             timer.setStartTime(thirdRoundStartTime);
         }
-        spawnTime = timer.maxTime - (float).5f;
+        spawnTime = timer.maxTime - (float)1f;
     }
 
     void setSpawnTimeIntervalForDecrementing()
@@ -187,7 +187,7 @@ public class GameManager2 : MonoBehaviour
         float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers -1);
         //Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
         //Debug.Log("temp " + temp);
-        spawnTimeIntervalForDecrementing = (float)timer.maxTime / (float)temp;
+        spawnTimeIntervalForDecrementing = ((float)spawnTime / (float)temp);
         //Debug.Log("time max " + timer.maxTime);
         //Debug.Log(spawnTimeIntervalForDecrementing);
     }
@@ -792,5 +792,6 @@ public class GameManager2 : MonoBehaviour
             }
             spawnTime -= spawnTimeIntervalForDecrementing;
         }
+
     }
 }

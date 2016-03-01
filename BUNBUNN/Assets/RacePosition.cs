@@ -17,8 +17,8 @@ public class RacePosition : MonoBehaviour {
     void Start () {
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
-
-        maxScore = localData.getMaxScore();
+        setPreviousPlayerUpright();
+        maxScore = localData.getMaxScore()/2;
 
         Debug.Log("max Score >>>  " + localData.getMaxScore());
         Debug.Log("previous player >>>  " + localData.getPreviousPlayer());
@@ -97,40 +97,128 @@ public class RacePosition : MonoBehaviour {
             Player5.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
         }
     }
+    void setPreviousPlayerUpright()
+    {
+        Vector3 upright = new Vector3();
+        upright.y = 0;
+        if (localData.playerData[localData.getPreviousPlayer()].color == "White")
+        {
+            Player1.transform.position = upright;
+            Player1.transform.Rotate(0, 0, 180);
+
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Red")
+        {
+            Player2.transform.position = upright;
+            Player2.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Yellow")
+        {
+            Player3.transform.position = upright;
+            Player3.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Blue")
+        {
+            Player4.transform.position = upright;
+            Player4.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Gray")
+        {
+            Player5.transform.position = upright;
+            Player5.transform.Rotate(0,0,180);
+        }
+    }
+
+
+    //used for click and pass feature
+    void setCurrentPlayerUprightAndPreviousDown()
+    {
+        Vector3 upright = new Vector3();
+        upright.y = 0;
+        Vector3 down = new Vector3();
+        down.y = -2;
+        if (localData.playerData[localData.getPreviousPlayer()].color == "White")
+        {
+            Player1.transform.position = upright;
+            Player1.transform.Rotate(0, 0, 180);
+            Player1.transform.position = down;
+            Player1.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Red")
+        {
+            Player2.transform.position = upright;
+            Player2.transform.Rotate(0, 0, 180);
+            Player2.transform.position = down;
+            Player2.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Yellow")
+        {
+            Player3.transform.position = upright;
+            Player3.transform.Rotate(0, 0, 180);
+            Player3.transform.position = down;
+            Player3.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Blue")
+        {
+            Player4.transform.position = upright;
+            Player4.transform.Rotate(0, 0, 180);
+            Player4.transform.position = down;
+            Player4.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.getPreviousPlayer()].color == "Gray")
+        {
+            Player5.transform.position = upright;
+            Player5.transform.Rotate(0, 0, 180);
+            Player5.transform.position = down;
+            Player5.transform.Rotate(0, 0, 180);
+        }
+    }
 
     void initializePlayerPositions()
     {
+        if (localData.numberOfPlayers == 2)
+        {
+            Destroy(Player3);
+            Destroy(Player4);
+            Destroy(Player5);
+        }
+        else if(localData.numberOfPlayers == 3)
+        {
+            Destroy(Player4);
+            Destroy(Player5);
+        }
+        else if (localData.numberOfPlayers == 4)
+        {
+            Destroy(Player5);
+        }
+        Vector2 temp = new Vector2();
+        temp.y = -2;
         //set player positions
         for (int i = 0; i < localData.numberOfPlayers; i++)
         {
             float percentForPositionCalc = localData.playerData[i].score / (float)maxScore;
             if (i == 0)
             {
-                Vector2 temp = new Vector2();
                 temp.x = maxPosition.transform.position.x * percentForPositionCalc;
                 Player1.transform.position = temp;
             }
             else if (i == 1)
             {
-                Vector2 temp = new Vector2();
                 temp.x = maxPosition.transform.position.x * percentForPositionCalc;
                 Player2.transform.position = temp;
             }
             else if (i == 2)
             {
-                Vector2 temp = new Vector2();
                 temp.x = maxPosition.transform.position.x * percentForPositionCalc;
                 Player3.transform.position = temp;
             }
             else if (i == 3)
             {
-                Vector2 temp = new Vector2();
                 temp.x = maxPosition.transform.position.x * percentForPositionCalc;
                 Player4.transform.position = temp;
             }
             else if (i == 4)
             {
-                Vector2 temp = new Vector2();
                 temp.x = maxPosition.transform.position.x * percentForPositionCalc;
                 Player5.transform.position = temp;
             }
