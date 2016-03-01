@@ -35,16 +35,5 @@ public class NextSceneOnClick : MonoBehaviour {
     void Update ()
     {
         Gplay.AddAcheivements(firstimeAchievment);
-        GameObject[] thingyToFind = GameObject.FindGameObjectsWithTag("trash");
-        int thingyCount = thingyToFind.Length;
-        //Debug.Log(thingyCount);
-        if (thingyCount == 0)
-        {
-            SceneManager.LoadScene("LocalMultiplayer");
-            //Back.SetActive(true);
-            //BackButton.enabled = true;
-        }
     }
-
-
 }
