@@ -122,4 +122,9 @@ public class AutoFlip : MonoBehaviour {
         }
         ControledBook.ReleasePage();
     }
+
+    public void BackToMenu()
+    {
+        Application.LoadLevel("MainMenu");
+    }
 }
