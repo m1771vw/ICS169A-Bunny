@@ -54,7 +54,7 @@ public class single_multi : MonoBehaviour
     }
     public void TutorialPress()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("TutorialRemade");
     }
     public void SinglePress()
     {
