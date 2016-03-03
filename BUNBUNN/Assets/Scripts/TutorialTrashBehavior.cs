@@ -30,10 +30,10 @@ public class TutorialTrashBehavior : MonoBehaviour {
     void OnDestroy()
     {
         GameObject[] listOfTutorialTrash = GameObject.FindGameObjectsWithTag("trash");
-        for (int i = 0; i < listOfTutorialTrash.Length;i++ )
-        {
-            Debug.Log(listOfTutorialTrash[i].name);
-        }
+        //for (int i = 0; i < listOfTutorialTrash.Length;i++ )
+        //{
+        //    Debug.Log(listOfTutorialTrash[i].name);
+        //}
         if (listOfTutorialTrash.Length==0)
         {
             tutorialManager.GetComponent<TutorialManager>().SpawnBombTutorial();
