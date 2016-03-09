@@ -50,9 +50,12 @@ public class BombBehavior : MonoBehaviour
                     int rand = Random.Range(1,6);
                     GameObject node = Instantiate(localData.ink, GameObject.Find("CenterOfScreen").transform.position * rand, Quaternion.identity) as GameObject;
                 }
-                GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(1);
                 Destroy(gameObject);
             }
         }
+    }
+    void OnDestroy()
+    {
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(1);
     }
 }

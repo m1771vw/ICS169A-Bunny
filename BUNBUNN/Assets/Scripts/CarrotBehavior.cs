@@ -58,7 +58,6 @@ public class CarrotBehavior : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        sound.PlaySound(4);
         if (localData != null)
         {
             if (localData.currentPlayerColor == "White")
@@ -252,6 +251,10 @@ public class CarrotBehavior : MonoBehaviour
                 }
             }
         }
+
+    }
+    void OnDestroy()
+    {
 
     }
 }
