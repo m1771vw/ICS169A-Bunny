@@ -4,23 +4,15 @@ using System.Collections.Generic;
 
 public class PlayerNumBall : MonoBehaviour
 {
-    private GameObject x_button;
+    public GameObject playerFilled;
+    
     private GameObject[] colorsList;
     private List<GameObject> colors;
+    public int myNum;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        x_button = transform.GetChild(0).gameObject;
-        x_button.SetActive(false);
-
-        colors = new List<GameObject>();
-        colorsList = GameObject.FindGameObjectsWithTag("ColorBall");
-        for (int i =0; i< colorsList.Length;i++)
-        {
-            colors.Add(colorsList[i]);
-        }
-
-
+        playerFilled.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,57 +23,31 @@ public class PlayerNumBall : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name.Contains("x"))
+
+        GameObject playermanager = GameObject.Find("PlayerManager");
+        playermanager.GetComponent<PlayerManager>().addOneToPlayerCount();
+        playerFilled.SetActive(true);
+        playerFilled.GetComponent<PlayerNumPortals>().SetThisParent(this.gameObject);
+        if (!playermanager.GetComponent<PlayerManager>().p5filled)
         {
-            //Debug.Log("x found");
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), col.gameObject.GetComponent<Collider2D>());
-        }
-        if (GetComponent<SpriteRenderer>().color==Color.white)
-        {
-            GetComponent<SpriteRenderer>().color = col.gameObject.GetComponent<SpriteRenderer>().color;
-            x_button.SetActive(true);
-            col.gameObject.SetActive(false);
-            
+            col.transform.position = new Vector3(0, 3.31f, 0);
+            col.rigidbody.velocity = Vector2.zero;
+            col.transform.rotation = Quaternion.identity;
         }
         else
         {
             col.gameObject.SetActive(false);
-            bounceColorOut();
-            GetComponent<SpriteRenderer>().color = col.gameObject.GetComponent<SpriteRenderer>().color;
-
         }
-        //GetComponent<SpriteRenderer>().sprite = col.gameObject.GetComponent<SpriteRenderer>().sprite;
+        this.gameObject.SetActive(false);
+
     }
 
     void OnMouseDown()
     {
-        transform.GetComponentInParent<PlayerNumBall>().resetColor();
+        //transform.GetComponentInParent<PlayerNumBall>().resetColor();
     }
 
-    void bounceColorOut()
-    {
-        for (int i = 0; i < colorsList.Length; i++)
-        {
-            if (colors[i].GetComponent<SpriteRenderer>().color == GetComponent<SpriteRenderer>().color)
-            {
-                if (colors[i].activeSelf == false)
-                {
+   
 
-                    colors[i].SetActive(true);
-
-                    colors[i].transform.position += new Vector3(0, 1.5f, 0);
-                    colors[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    colors[i].GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
-                }
-            }
-        }
-    }
-
-    public void resetColor()
-    {
-        bounceColorOut();
-        GetComponent<SpriteRenderer>().color = Color.white;
-        x_button.SetActive(false);
-    }
 
 }
