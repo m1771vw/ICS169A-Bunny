@@ -38,11 +38,11 @@ public class single_multi : MonoBehaviour
     public void exitPress()
     {
         quitMenu.enabled = true;
-        exitText.enabled = false;
+        exitText.enabled = true;
         PlaySingle.enabled = false;
-        PlayMulti.enabled = false;
+        //PlayMulti.enabled = false;
         SinglePlayer.SetActive(false);
-        Multi.SetActive(false);
+        //Multi.SetActive(false);
         Quit.SetActive(false);
     }
 
