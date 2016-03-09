@@ -27,11 +27,13 @@ public class PositionCollisionPlayer1 : MonoBehaviour
             //make sure score increased
             if (localData.playerData[localData.getPreviousPlayer()].preTurnScore < localData.playerData[localData.getPreviousPlayer()].score)
             {
+                GameObject.Find("Camera").GetComponent<SoundManager>().PlaySound(0);
                 GameObject node = Instantiate(confetti, gameObject.transform.position, Quaternion.identity) as GameObject;
                 GameObject happy = Instantiate(happyBunny, gameObject.transform.position, Quaternion.identity) as GameObject;
             }
             else if (localData.playerData[localData.getPreviousPlayer()].preTurnScore > localData.playerData[localData.getPreviousPlayer()].score)
             {
+                GameObject.Find("Camera").GetComponent<SoundManager>().PlaySound(1);
                 GameObject node = Instantiate(sadBunny, gameObject.transform.position, Quaternion.identity) as GameObject;
             }
         }

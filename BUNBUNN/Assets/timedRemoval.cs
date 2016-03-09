@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class timedRemoval : MonoBehaviour {
-    float destroyTime = 1.75f;
+    float destroyTime = 2.0f;
 	// Use this for initialization
 	void Start () {
 	

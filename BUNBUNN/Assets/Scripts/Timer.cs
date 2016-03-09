@@ -66,6 +66,7 @@ public class Timer : MonoBehaviour
             //this is for the GameManager class. When the current time <= 0, it'll set it manually to 0.0f for the GameManager class
             if (curTime <= 0.0f)
             {
+                GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(7);
                 isZero = true;
                 curTime = 0.0f;
             }
@@ -80,6 +81,7 @@ public class Timer : MonoBehaviour
             {
 
                 // timeBar.color = Color.red;
+                //GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(2);
                 timerPie.color = Color.red;
             }
 

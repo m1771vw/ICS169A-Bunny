@@ -8,7 +8,7 @@ public class CoinToss : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        chooseBackground();
 	}
 	
 	void chooseBackground()
@@ -17,13 +17,11 @@ public class CoinToss : MonoBehaviour {
         float number = Random.value;
         if(number <= 0.5)
         {
-            // choose western
-            Debug.Log("Less than 5, trying to launch Western");
-        }
-        else
-        {
             // choose feudal
-            Debug.Log("Greater than 5, trying to launch Feudal");
+            Debug.Log(" than 5, trying to launch Western");
+            GameObject.Find("western").GetComponent<SpriteRenderer>().sprite = GameObject.Find("feudal").GetComponent<SpriteRenderer>().sprite;
+            // GameObject.Find("backgroundcamera").GetComponent<AudioSource>().clip.Equals
         }
+
     }
 }
