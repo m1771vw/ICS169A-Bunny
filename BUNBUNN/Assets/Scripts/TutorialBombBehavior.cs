@@ -33,6 +33,7 @@ public class TutorialBombBehavior : MonoBehaviour {
     {
         int rand = Random.Range(1, 6);
         Instantiate(ink, Vector3.zero * rand, Quaternion.identity);
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(1);
         tutorialManager.GetComponent<TutorialManager>().ChangeTutorialText("");
 
     }

@@ -47,6 +47,7 @@ public class TrashBehavior : MonoBehaviour {
     {
         if (localData != null)
         {
+            GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
             if (localData.currentPlayerColor == "White")
             {
                 if (col.gameObject.tag == "Player1")

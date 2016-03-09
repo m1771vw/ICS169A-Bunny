@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour {
 
 	}
 
+
     public void addOneToPlayerCount()
     {
         if (inputNum == 0)
@@ -96,5 +97,6 @@ public class PlayerManager : MonoBehaviour {
         }
         inputNum--;
     }
+
 
 }

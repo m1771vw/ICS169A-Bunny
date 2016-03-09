@@ -7,10 +7,10 @@ public class NextSceneOnClick : MonoBehaviour {
 
     public string scene;
     public Text countdown;
-    public Button Next;
     public string firstimeAchievment = "CgkIitHChdsBEAIQAw";
     private bool countingDown = false;
     private float timer;
+    bool clicked = false;
     PlayGames Gplay = new PlayGames();
     // Use this for initialization
     void Start () {
@@ -19,17 +19,16 @@ public class NextSceneOnClick : MonoBehaviour {
  
     public void OnMouseDown()
     {
-        countingDown = true;
-       // InvokeRepeating("ReduceTime", 1, 1);
+        if(clicked == true)
+        {
+            SceneManager.LoadScene("LocalMultiplayer");
+        }
+        GameObject.Find("ClickToPlay").GetComponent<Image>().sprite =
+            GameObject.Find("newImage").GetComponent<Image>().sprite;
+        GameObject.Find("Camera").GetComponent<RacePosition>().setCurrentPlayerUprightAndPreviousDown();
+        clicked = true;   
     }
-    //public void ReduceTime()
-    //{
-    //    countdown.text = (int.Parse(countdown.text) - 1).ToString();
-    //    if (countdown.text == "0")
-    //    {
-    //        SceneManager.LoadScene("LocalMultiplayer");
-    //    }
-    //}
+
     public void Back()
     {
         SceneManager.LoadScene("MainMenu");
@@ -38,20 +37,6 @@ public class NextSceneOnClick : MonoBehaviour {
     void Update ()
     {
         Gplay.AddAcheivements(firstimeAchievment);
-        if (countingDown)
-        {
-            reduceTime();
-        }
-        float newTime = Mathf.Floor(timer * 100.0f + 0.5f) / 100;
-        countdown.text = ((int)newTime).ToString();
-        if (timer <=0.0f)
-        {
-            SceneManager.LoadScene("LocalMultiplayer");
-        }
     }
-    void reduceTime()
-    {
-        timer -= Time.deltaTime;
 
-    }
 }
