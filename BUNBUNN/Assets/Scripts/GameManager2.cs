@@ -136,7 +136,7 @@ public class GameManager2 : MonoBehaviour
             }
             spawnTime -= spawnTimeIntervalForDecrementing;
         }
-        else if (localData.currentRound == 2)
+        else if (localData.currentRound >= 2)
         {
             spawnPortalObjects();
             if (bombCount != bombCap)
@@ -196,13 +196,12 @@ public class GameManager2 : MonoBehaviour
         {
             timer.setStartTime(thirdRoundStartTime);
         }
-        spawnTime = timer.maxTime - (float)1f;
     }
 
     void setSpawnTimeIntervalForDecrementing()
     {
         float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers - 1);
-        //Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
+        Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
         //Debug.Log("temp " + temp);
         spawnTimeIntervalForDecrementing = (((float)timer.maxTime-1) / (float)temp);
         spawnTimeIntervalForDecrementing = spawnTimeIntervalForDecrementing / 2;
