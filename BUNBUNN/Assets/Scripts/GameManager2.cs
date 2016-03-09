@@ -204,7 +204,8 @@ public class GameManager2 : MonoBehaviour
         float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers - 1);
         //Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
         //Debug.Log("temp " + temp);
-        spawnTimeIntervalForDecrementing = ((float)spawnTime / (float)temp);
+        spawnTimeIntervalForDecrementing = (((float)timer.maxTime-1) / (float)temp);
+        spawnTimeIntervalForDecrementing = spawnTimeIntervalForDecrementing / 2;
         //Debug.Log("time max " + timer.maxTime);
         //Debug.Log(spawnTimeIntervalForDecrementing);
     }

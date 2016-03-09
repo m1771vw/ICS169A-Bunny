@@ -4,7 +4,7 @@ using System.Collections;
 public class PositionCollisionPlayer5 : MonoBehaviour {
     private GameObject dataObject;
     private LocalMultiplayerGameData localData;
-    public GameObject confetti;
+    public GameObject confetti,happyBunny, sadBunny;
 
     // Use this for initialization
     void Start()
@@ -23,11 +23,16 @@ public class PositionCollisionPlayer5 : MonoBehaviour {
         if (localData.playerData[localData.getPreviousPlayer()].color == "Gray" )
         {
             //make sure score increased
-            if(localData.playerData[localData.getPreviousPlayer()].preTurnScore < localData.playerData[localData.getPreviousPlayer()].score)
+            if (localData.playerData[localData.getPreviousPlayer()].preTurnScore < localData.playerData[localData.getPreviousPlayer()].score)
             {
                 GameObject node = Instantiate(confetti, gameObject.transform.position, Quaternion.identity) as GameObject;
+                GameObject happy = Instantiate(happyBunny, gameObject.transform.position, Quaternion.identity) as GameObject;
             }
-                
+            else if(localData.playerData[localData.getPreviousPlayer()].preTurnScore > localData.playerData[localData.getPreviousPlayer()].score)
+            {
+                GameObject node = Instantiate(sadBunny, gameObject.transform.position, Quaternion.identity) as GameObject;
+            }
+
         }
     }
 
