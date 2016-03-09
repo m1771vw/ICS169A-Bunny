@@ -25,6 +25,6 @@ public class PlayerManager : MonoBehaviour {
 
 	}
 
-    void 
+    //void 
 
 }

@@ -131,7 +131,7 @@ public class RacePosition : MonoBehaviour {
 
 
     //used for click and pass feature
-    void setCurrentPlayerUprightAndPreviousDown()
+    public void setCurrentPlayerUprightAndPreviousDown()
     {
         Vector3 upright = new Vector3();
         upright.y = 0;
