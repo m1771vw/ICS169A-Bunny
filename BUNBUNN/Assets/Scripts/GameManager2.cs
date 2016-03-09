@@ -50,12 +50,12 @@ public class GameManager2 : MonoBehaviour
     /// </summary>
     void Start()
     {
-        carrotCountText = GameObject.Find("CarrotCountText").GetComponent<Text>();
+        //carrotCountText = GameObject.Find("CarrotCountText").GetComponent<Text>();
         dataObject = GameObject.Find("LocalMultiplayerGameData");
         localData = dataObject.GetComponent<LocalMultiplayerGameData>();
         timeObject = GameObject.Find("Timer");
         timer = timeObject.GetComponent<Timer>();
-        cleanPercentText = GameObject.Find("CleanPercentText").GetComponent<Text>();
+        //cleanPercentText = GameObject.Find("CleanPercentText").GetComponent<Text>();
 
         localData.currentPlayerColor = localData.playerData[localData.currentPlayer].color;
         /*
