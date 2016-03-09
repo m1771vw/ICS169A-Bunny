@@ -26,6 +26,7 @@ public class PlayerNumBall : MonoBehaviour
 
         GameObject playermanager = GameObject.Find("PlayerManager");
         playermanager.GetComponent<PlayerManager>().addOneToPlayerCount();
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(6);
         playerFilled.SetActive(true);
         playerFilled.GetComponent<PlayerNumPortals>().SetThisParent(this.gameObject);
         if (!playermanager.GetComponent<PlayerManager>().p5filled)
