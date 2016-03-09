@@ -20,7 +20,7 @@ public class ClickAndFling : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(5);
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(5); 
         spring = currentObject.AddComponent<SpringJoint2D>() as SpringJoint2D;
         //allows oject collision when attached not the collsion of the line drawn to be the spring
         currentObject.GetComponent<SpringJoint2D>().enableCollision = true;
