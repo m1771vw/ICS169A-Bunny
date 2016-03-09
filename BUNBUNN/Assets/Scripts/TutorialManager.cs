@@ -36,13 +36,13 @@ public class TutorialManager : MonoBehaviour {
         GameObject node3 = Instantiate(trash3, new Vector3(5, 0, 0), Quaternion.identity) as GameObject;
         node3.GetComponent<SpriteRenderer>().color = Color.green;
 
-        ChangeTutorialText("Drag the trash to the portal. Brightly colored trash is from other players.");
+        ChangeTutorialText("Drag the trash to the portal to send to other players. \nDifferent colored trash is from other players.");
     }
 
     public void SpawnBombTutorial()
     {
         Instantiate(bomb, new Vector3(0, 0, 0), Quaternion.identity);
-        ChangeTutorialText("Bombs hinder you. Drag to portal to see effect");
+        ChangeTutorialText("Bombs hinder you. \nDrag to portal to see effect");
 
     }
     public void LoadMainMenu()
@@ -58,8 +58,7 @@ public class TutorialManager : MonoBehaviour {
     public void ShowMenuButton()
     {
         Destroy(portalObject);
-        GameObject.Find("background camera").GetComponent<AudioSource>().Stop();
-        
+        ChangeTutorialText("Have fun!");        
         menuButton.SetActive(true);
     }
     
