@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void subOneToPlayerCount()
     {
-        if (inputNum == 4)
+        if (inputNum == 5)
         {
             p5filled = false;
             P5.SetActive(false);
@@ -76,21 +76,22 @@ public class PlayerManager : MonoBehaviour {
             bunnyHead.transform.position = new Vector3(0, 3.31f, 0);
             
         }
-        else if (inputNum == 3)
+        else if (inputNum == 4)
         {
             p4filled = false;
+            P5.SetActive(false);
+        }
+        else if (inputNum == 3)
+        {
+            p3filled = false;
             P4.SetActive(false);
         }
         else if (inputNum == 2)
         {
-            p3filled = false;
+            p2filled = true;
             P3.SetActive(false);
         }
         else if (inputNum == 1)
-        {
-            p2filled = true;
-        }
-        else if (inputNum == 0)
         {
             p1filled = false;
 

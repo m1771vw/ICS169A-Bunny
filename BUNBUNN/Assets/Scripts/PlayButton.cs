@@ -3,7 +3,10 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 public class PlayButton : MonoBehaviour {
 
-
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     void OnMouseDown()
     {
         PlayerManager playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
