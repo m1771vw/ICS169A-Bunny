@@ -9,16 +9,19 @@ public class NextSceneOnClick : MonoBehaviour {
     public Text countdown;
     public Button Next;
     public string firstimeAchievment = "CgkIitHChdsBEAIQAw";
+    private bool countingDown = false;
+    private float timer;
     PlayGames Gplay = new PlayGames();
     // Use this for initialization
     void Start () {
-	
+        timer = (float.Parse(countdown.text));
 	}
  
     public void OnMouseDown()
     {
         SceneManager.LoadScene("LocalMultiplayer");
     }
+
 
     public void Back()
     {
@@ -28,5 +31,20 @@ public class NextSceneOnClick : MonoBehaviour {
     void Update ()
     {
         Gplay.AddAcheivements(firstimeAchievment);
+        if (countingDown)
+        {
+            reduceTime();
+        }
+        float newTime = Mathf.Floor(timer * 100.0f + 0.5f) / 100;
+        countdown.text = ((int)newTime).ToString();
+        if (timer <=0.0f)
+        {
+            SceneManager.LoadScene("LocalMultiplayer");
+        }
+    }
+    void reduceTime()
+    {
+        timer -= Time.deltaTime;
+
     }
 }
