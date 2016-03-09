@@ -19,17 +19,10 @@ public class NextSceneOnClick : MonoBehaviour {
  
     public void OnMouseDown()
     {
-        countingDown = true;
-       // InvokeRepeating("ReduceTime", 1, 1);
+        SceneManager.LoadScene("LocalMultiplayer");
     }
-    //public void ReduceTime()
-    //{
-    //    countdown.text = (int.Parse(countdown.text) - 1).ToString();
-    //    if (countdown.text == "0")
-    //    {
-    //        SceneManager.LoadScene("LocalMultiplayer");
-    //    }
-    //}
+
+
     public void Back()
     {
         SceneManager.LoadScene("MainMenu");

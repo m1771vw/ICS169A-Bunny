@@ -16,13 +16,15 @@ public class PlayerManager : MonoBehaviour {
 	void Start () 
     {
 
-        listOfPlayerBalls = new List<GameObject>();
-        playerBallArray = GameObject.FindGameObjectsWithTag("ColorBall");
-        for (int i = 0; i < playerBallArray.Length; i++)
-        {
-            listOfPlayerBalls.Add(playerBallArray[i]);
-        }
+        //listOfPlayerBalls = new List<GameObject>();
+        //playerBallArray = GameObject.FindGameObjectsWithTag("ColorBall");
+        //for (int i = 0; i < playerBallArray.Length; i++)
+        //{
+        //    listOfPlayerBalls.Add(playerBallArray[i]);
+        //}
 
 	}
+
+    void 
 
 }
