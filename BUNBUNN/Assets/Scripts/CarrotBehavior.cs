@@ -11,9 +11,8 @@ public class CarrotBehavior : MonoBehaviour
     private float growthInterval = .02f;
     public GameObject cameraObject;
     // Sound Code
-    public AudioClip collectSound;
-    public AudioClip enterPortalSound;
-    private AudioSource source;
+    private SoundManager sound;
+
 
     // Use this for initialization
     void Start()
@@ -24,7 +23,8 @@ public class CarrotBehavior : MonoBehaviour
         timer = dataObject.GetComponent<Timer>();
         startTime = timer.getTime();
         // Sound
-        source = GetComponent<AudioSource>();
+        dataObject = GameObject.Find("background camera");
+        sound = dataObject.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class CarrotBehavior : MonoBehaviour
         localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
         
         localData.playerData[localData.currentPlayer].carrotCount++;
-        source.Play(); // Sound
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0); // Sound
         Debug.Log("Sound should of played");
         Destroy(this.gameObject);
         
@@ -67,7 +67,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[0].player1PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player2")
@@ -75,7 +74,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[1].player1PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player3")
@@ -83,7 +81,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[2].player1PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player4")
@@ -91,7 +88,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[3].player1PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player5")
@@ -99,7 +95,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[4].player1PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
             }
@@ -110,7 +105,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[0].player2PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player2")
@@ -118,7 +112,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[1].player2PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player3")
@@ -126,7 +119,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[2].player2PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player4")
@@ -134,7 +126,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[3].player2PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player5")
@@ -142,7 +133,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[4].player2PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
             }
@@ -153,7 +143,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[0].player3PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player2")
@@ -161,7 +150,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[1].player3PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player3")
@@ -169,7 +157,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[2].player3PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player4")
@@ -177,7 +164,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[3].player3PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player5")
@@ -185,7 +171,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[4].player3PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
             }
@@ -196,7 +181,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[0].player4PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player2")
@@ -204,7 +188,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[1].player4PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player3")
@@ -212,7 +195,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[2].player4PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player4")
@@ -220,7 +202,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[3].player4PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player5")
@@ -228,7 +209,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[4].player4PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
             }
@@ -239,7 +219,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[0].player5PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player2")
@@ -247,7 +226,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[1].player5PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player3")
@@ -255,7 +233,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[2].player5PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player4")
@@ -263,7 +240,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[3].player5PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
                 else if (col.gameObject.tag == "Player5")
@@ -271,7 +247,6 @@ public class CarrotBehavior : MonoBehaviour
                     localData.playerData[localData.currentPlayer].currentSceneObjects.RemoveAt(0);
 
                     localData.playerData[4].player5PortalContents.Add(localData.carrot);
-                    source.PlayOneShot(enterPortalSound, 1.0f); // Sound
                     Destroy(this.gameObject);
                 }
             }
