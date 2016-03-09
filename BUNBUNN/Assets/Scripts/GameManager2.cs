@@ -33,7 +33,7 @@ public class GameManager2 : MonoBehaviour
     public Color player4Color = new Color(0, 0, 255);
     public Color player5Color = new Color(0.5f, 0.5f, 0.5f, 1f);
     public List<GameObject> portalList = new List<GameObject>();
-    public float spawnTimeIntervalForDecrementing = 0; 
+    public float spawnTimeIntervalForDecrementing = 0;
     public int spawnCounter;
     public Text carrotCountText, cleanPercentText;
     public float hundredPercent;
@@ -85,15 +85,15 @@ public class GameManager2 : MonoBehaviour
 
         Debug.Log("time  " + timer.maxTime + "object count   " + totalObjectCount);
         setSpawnTimeIntervalForDecrementing();
-        
+
         sceneSetup();
-        hundredPercent = totalObjectCount;
+        setHundredPercent();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         //check for end of session, round, and game
         if (timer.getTime() <= 0)
         {
@@ -108,7 +108,7 @@ public class GameManager2 : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        
+
         carrotCountText.text = localData.playerData[localData.currentPlayer].carrotCount.ToString();
         changeCleanPercent();
 
@@ -116,27 +116,27 @@ public class GameManager2 : MonoBehaviour
         if (localData.currentRound == 1 && timer.getTime() < spawnTime && timer.getTime() > spawnTime - spawnTimeBuffer)
         {
             //Debug.Log("spawn");
-            for(int i = 0; i < localData.numberOfPlayers - 1; i++)
+            for (int i = 0; i < localData.numberOfPlayers - 1; i++)
             {
-                if(totalObjectCount != 0)
+                if (totalObjectCount != 0)
                 {
                     localData.playerData[localData.currentPlayer].currentSceneObjects.Add(localData.startingObjectList[totalObjectCount - 1]);
 
-                    int random = Random.Range(0, (localData.numberOfPlayers-1));
+                    int random = Random.Range(0, (localData.numberOfPlayers - 1));
                     Vector3 direction = new Vector3();
                     direction = portalList[random].transform.position - centerOfScreen.transform.position;
                     direction.Normalize();
-                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position - (direction*2) , Quaternion.identity) as GameObject;
-                    
-                    node.GetComponent<Rigidbody2D>().AddForce(new Vector2(-direction.x*2, -direction.y*2), ForceMode2D.Impulse);
-                    
+                    GameObject node = Instantiate(localData.startingObjectList[totalObjectCount - 1], portalList[random].transform.position - (direction * 2), Quaternion.identity) as GameObject;
+
+                    node.GetComponent<Rigidbody2D>().AddForce(new Vector2(-direction.x * 2, -direction.y * 2), ForceMode2D.Impulse);
+
                     totalObjectCount--;
                     spawnCounter++;
-                }                
+                }
             }
             spawnTime -= spawnTimeIntervalForDecrementing;
         }
-        else if(localData.currentRound == 2)
+        else if (localData.currentRound == 2)
         {
             spawnPortalObjects();
             if (bombCount != bombCap)
@@ -154,12 +154,29 @@ public class GameManager2 : MonoBehaviour
     void changeCleanPercent()
     {
         float newPercent = localData.playerData[localData.currentPlayer].currentSceneObjects.Count / hundredPercent;
-        Debug.Log("curr number: "+localData.playerData[localData.currentPlayer].currentSceneObjects.Count);
-        Debug.Log("starting number: " + hundredPercent);
+        //Debug.Log("curr number: "+localData.playerData[localData.currentPlayer].currentSceneObjects.Count);
+        //Debug.Log("starting number: " + hundredPercent);
+
+        //this takes the percent and converts it into an int essentially
         newPercent = Mathf.Floor(newPercent * 100.0f + 0.5f) / 100;
         newPercent *= 100;
-        
-        cleanPercentText.text = (100-newPercent).ToString()+"%";
+
+        //subtract that int by 100 since thats how many objects are in the scene percentage. 
+        //somehow this can be weird and wonky sometimes
+        cleanPercentText.text = (100 - newPercent).ToString() + "%";
+    }
+
+    void setHundredPercent()
+    {
+        //take total objects in game for starting round
+        hundredPercent = totalObjectCount;
+        //adds all objects meant for this player 
+        hundredPercent += localData.playerData[localData.currentPlayer].player1PortalContents.Count;
+        hundredPercent += localData.playerData[localData.currentPlayer].player2PortalContents.Count;
+        hundredPercent += localData.playerData[localData.currentPlayer].player3PortalContents.Count;
+        hundredPercent += localData.playerData[localData.currentPlayer].player4PortalContents.Count;
+        hundredPercent += localData.playerData[localData.currentPlayer].player5PortalContents.Count;
+
     }
 
     void setTimer()
@@ -168,7 +185,7 @@ public class GameManager2 : MonoBehaviour
         {
             timer.setStartTime(firstRoundStartTime);
             totalObjectCount = localData.startingObjectList.Count;
-            
+
 
         }
         else if (localData.currentRound == 2)
@@ -184,7 +201,7 @@ public class GameManager2 : MonoBehaviour
 
     void setSpawnTimeIntervalForDecrementing()
     {
-        float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers -1);
+        float temp = (float)totalObjectCount / (float)(localData.numberOfPlayers - 1);
         //Debug.Log("obj count " + totalObjectCount + "total players" + localData.numberOfPlayers);
         //Debug.Log("temp " + temp);
         spawnTimeIntervalForDecrementing = ((float)spawnTime / (float)temp);
@@ -196,8 +213,8 @@ public class GameManager2 : MonoBehaviour
     {
         if (localData.playerData[localData.currentPlayer].color == "White")
         {
-           totalObjectCount = localData.playerData[localData.currentPlayer].player2PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count
-                + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player5PortalContents.Count;
+            totalObjectCount = localData.playerData[localData.currentPlayer].player2PortalContents.Count + localData.playerData[localData.currentPlayer].player3PortalContents.Count
+                 + localData.playerData[localData.currentPlayer].player4PortalContents.Count + localData.playerData[localData.currentPlayer].player5PortalContents.Count;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Red")
         {
@@ -291,12 +308,12 @@ public class GameManager2 : MonoBehaviour
                 colorChanger.color = player5Color;
             }
         }
-            /*
-            topPortal.tag = "Player1";
-            rightPortal.tag = "Player3";
-            botPortal.tag = "Player4";
-            leftPortal.tag = "Player5";
-            */
+        /*
+        topPortal.tag = "Player1";
+        rightPortal.tag = "Player3";
+        botPortal.tag = "Player4";
+        leftPortal.tag = "Player5";
+        */
         else if (localData.playerData[localData.currentPlayer].color == "Red")
         {
             if (localData.numberOfPlayers == 2)
@@ -355,12 +372,12 @@ public class GameManager2 : MonoBehaviour
                 colorChanger.color = player5Color;
             }
         }
-            /*
-            topPortal.tag = "Player2";
-            rightPortal.tag = "Player1";
-            botPortal.tag = "Player4";
-            leftPortal.tag = "Player5";
-            */
+        /*
+        topPortal.tag = "Player2";
+        rightPortal.tag = "Player1";
+        botPortal.tag = "Player4";
+        leftPortal.tag = "Player5";
+        */
         else if (localData.playerData[localData.currentPlayer].color == "Yellow")
         {
             if (localData.numberOfPlayers == 3)
@@ -407,12 +424,12 @@ public class GameManager2 : MonoBehaviour
                 colorChanger.color = player5Color;
             }
         }
-            /*
-            topPortal.tag = "Player2";
-            rightPortal.tag = "Player3";
-            botPortal.tag = "Player1";
-            leftPortal.tag = "Player5";
-            */
+        /*
+        topPortal.tag = "Player2";
+        rightPortal.tag = "Player3";
+        botPortal.tag = "Player1";
+        leftPortal.tag = "Player5";
+        */
         else if (localData.playerData[localData.currentPlayer].color == "Blue")
         {
             if (localData.numberOfPlayers == 4)
@@ -446,12 +463,12 @@ public class GameManager2 : MonoBehaviour
                 colorChanger.color = player5Color;
             }
         }
-            /*
-            topPortal.tag = "Player2";
-            rightPortal.tag = "Player3";
-            botPortal.tag = "Player4";
-            leftPortal.tag = "Player1";
-            */
+        /*
+        topPortal.tag = "Player2";
+        rightPortal.tag = "Player3";
+        botPortal.tag = "Player4";
+        leftPortal.tag = "Player1";
+        */
         else if (localData.playerData[localData.currentPlayer].color == "Gray")
         {
             if (localData.numberOfPlayers == 5)

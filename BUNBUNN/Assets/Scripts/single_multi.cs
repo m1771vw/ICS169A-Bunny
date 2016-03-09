@@ -18,7 +18,6 @@ public class single_multi : MonoBehaviour
     void Start()
     {
         PlayGamesPlatform.Activate();
-        Gplay.LogIn();
         //Gplay.AddAcheivements(LoggingInAcheivment);
         quitMenu = quitMenu.GetComponent<Canvas>();
         exitText = exitText.GetComponent<Button>();
@@ -26,6 +25,11 @@ public class single_multi : MonoBehaviour
         //PlayMulti = PlayMulti.GetComponent<Button>();
         quitMenu.enabled = false;
 
+    }
+
+    void logIn()
+    {
+        Gplay.LogIn();
     }
     void Update()
     {
@@ -54,7 +58,7 @@ public class single_multi : MonoBehaviour
     }
     public void TutorialPress()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("TutorialRemade");
     }
     public void SinglePress()
     {
