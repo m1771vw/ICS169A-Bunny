@@ -29,7 +29,7 @@ public class EndGameScreen : MonoBehaviour {
         /// need to kick to next screen do not remove
         localData.topScore = top;
 
-        topPlayer.text = "The winner is \nPlayer " + localData.topPlayer;
+        topPlayer.text = "The winner is \nPlayer " + localData.topPlayer+1;
         scores.text = localData.topScore.ToString();
         Gplay.OnAddScoreToLeaderBorad(localData.topScore);
     }
