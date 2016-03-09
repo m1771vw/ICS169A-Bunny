@@ -13,6 +13,7 @@ public class RacePosition : MonoBehaviour {
     private float startTime;
     private float journeyLength;
     private bool lerpOn = true;
+    public GameObject you;
 
     // Use this for initialization
     void Start () {
@@ -76,28 +77,45 @@ public class RacePosition : MonoBehaviour {
         float distCovered = (Time.time - startTime) * speed;
         float fracJourney = distCovered / journeyLength;
         //transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+        Vector3 increaseYouHeight = new Vector3();
+        float height = 1.25f;
         if (lerpOn == true)
         {
             //lerp it
             if (localData.playerData[localData.getPreviousPlayer()].color == "White")
             {
                 Player1.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+                increaseYouHeight = Player1.transform.position;
+                increaseYouHeight.y = height;
+                you.transform.position = increaseYouHeight; 
             }
             else if (localData.playerData[localData.getPreviousPlayer()].color == "Red")
             {
                 Player2.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+                increaseYouHeight = Player2.transform.position;
+                increaseYouHeight.y = height;
+                you.transform.position = increaseYouHeight;
             }
             else if (localData.playerData[localData.getPreviousPlayer()].color == "Yellow")
             {
                 Player3.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+                increaseYouHeight = Player3.transform.position;
+                increaseYouHeight.y = height;
+                you.transform.position = increaseYouHeight;
             }
             else if (localData.playerData[localData.getPreviousPlayer()].color == "Blue")
             {
                 Player4.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+                increaseYouHeight = Player4.transform.position;
+                increaseYouHeight.y = height;
+                you.transform.position = increaseYouHeight;
             }
             else if (localData.playerData[localData.getPreviousPlayer()].color == "Gray")
             {
                 Player5.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+                increaseYouHeight = Player5.transform.position;
+                increaseYouHeight.y = height;
+                you.transform.position = increaseYouHeight;
             }
         }
     }
@@ -140,7 +158,8 @@ public class RacePosition : MonoBehaviour {
         lerpOn = false;
         Vector3 down = new Vector3();
         down.y = -2;
-
+        Vector3 increaseYouHeight = new Vector3();
+        float height = 1.25f;
         if (localData.playerData[localData.getPreviousPlayer()].color == "White")
         {
             down.x = Player1.transform.position.x;
@@ -181,30 +200,50 @@ public class RacePosition : MonoBehaviour {
             Player1.transform.position = upright;
             Player1.transform.Rotate(0, 0, 180);
 
+            increaseYouHeight = Player1.transform.position;
+            increaseYouHeight.y = height;
+            you.transform.position = increaseYouHeight;
+
         }
         else if (localData.playerData[localData.currentPlayer].color == "Red")
         {
             upright.x = Player2.transform.position.x;
             Player2.transform.position = upright;
             Player2.transform.Rotate(0, 0, 180);
+
+            increaseYouHeight = Player2.transform.position;
+            increaseYouHeight.y = height;
+            you.transform.position = increaseYouHeight;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Yellow")
         {
             upright.x = Player3.transform.position.x;
             Player3.transform.position = upright;
             Player3.transform.Rotate(0, 0, 180);
+
+            increaseYouHeight = Player3.transform.position;
+            increaseYouHeight.y = height;
+            you.transform.position = increaseYouHeight;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Blue")
         {
             upright.x = Player4.transform.position.x;
             Player4.transform.position = upright;
             Player4.transform.Rotate(0, 0, 180);
+
+            increaseYouHeight = Player4.transform.position;
+            increaseYouHeight.y = height;
+            you.transform.position = increaseYouHeight;
         }
         else if (localData.playerData[localData.currentPlayer].color == "Gray")
         {
             upright.x = Player5.transform.position.x;
             Player5.transform.position = upright;
             Player5.transform.Rotate(0, 0, 180);
+
+            increaseYouHeight = Player5.transform.position;
+            increaseYouHeight.y = height;
+            you.transform.position = increaseYouHeight;
         }
     }
 
