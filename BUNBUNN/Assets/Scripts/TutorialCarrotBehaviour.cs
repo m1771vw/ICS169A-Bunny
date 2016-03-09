@@ -7,9 +7,16 @@ public class TutorialCarrotBehaviour : MonoBehaviour {
     private float timer = 10f;
     public GameObject confetti;
     private GameObject tutorialManager;
+    // Sound Code
+    private GameObject dataObject;
+    private SoundManager sound;
+   
 	// Use this for initialization
 	void Start () {
         tutorialManager = GameObject.Find("Tutorial Manager");
+        // Sound
+        dataObject = GameObject.Find("background camera");
+        sound = dataObject.GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +39,7 @@ public class TutorialCarrotBehaviour : MonoBehaviour {
     {
         
         Instantiate(confetti, transform.position, Quaternion.identity);
+        sound.PlaySound(3);
         Destroy(this.gameObject);
     }
     void OnDestroy()

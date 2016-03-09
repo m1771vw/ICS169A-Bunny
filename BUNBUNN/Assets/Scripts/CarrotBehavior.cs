@@ -49,7 +49,7 @@ public class CarrotBehavior : MonoBehaviour
         localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
         
         localData.playerData[localData.currentPlayer].carrotCount++;
-        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0); // Sound
+        sound.PlaySound(3); // Sound
         Debug.Log("Sound should of played");
         Destroy(this.gameObject);
         
@@ -58,6 +58,7 @@ public class CarrotBehavior : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
+        sound.PlaySound(4);
         if (localData != null)
         {
             if (localData.currentPlayerColor == "White")

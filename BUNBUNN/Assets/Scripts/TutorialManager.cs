@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class TutorialManager : MonoBehaviour {
     public GameObject carrot, trash1, trash2, trash3, bomb, portal, TutorialText, menuButton;
     private GameObject portalObject;
+
+    
 	// Use this for initialization
 	void Start () {
         Instantiate(carrot, Vector3.zero, Quaternion.identity);
@@ -56,6 +58,8 @@ public class TutorialManager : MonoBehaviour {
     public void ShowMenuButton()
     {
         Destroy(portalObject);
+        GameObject.Find("background camera").GetComponent<AudioSource>().Stop();
+        
         menuButton.SetActive(true);
     }
     
