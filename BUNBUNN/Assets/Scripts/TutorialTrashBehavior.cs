@@ -30,6 +30,7 @@ public class TutorialTrashBehavior : MonoBehaviour {
     void OnDestroy()
     {
         GameObject[] listOfTutorialTrash = GameObject.FindGameObjectsWithTag("trash");
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
         //for (int i = 0; i < listOfTutorialTrash.Length;i++ )
         //{
         //    Debug.Log(listOfTutorialTrash[i].name);

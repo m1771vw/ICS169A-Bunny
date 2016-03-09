@@ -39,7 +39,7 @@ public class TutorialCarrotBehaviour : MonoBehaviour {
     {
         
         Instantiate(confetti, transform.position, Quaternion.identity);
-        sound.PlaySound(2);
+        sound.PlaySound(3);
         Destroy(this.gameObject);
     }
     void OnDestroy()
