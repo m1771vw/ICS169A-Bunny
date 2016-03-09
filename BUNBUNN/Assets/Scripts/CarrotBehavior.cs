@@ -9,6 +9,11 @@ public class CarrotBehavior : MonoBehaviour
     private Timer timer;
     private float startTime;
     private float growthInterval = .02f;
+    public GameObject cameraObject;
+    // Sound Code
+    private SoundManager sound;
+
+
     // Use this for initialization
     void Start()
     {
@@ -17,6 +22,9 @@ public class CarrotBehavior : MonoBehaviour
         dataObject = GameObject.Find("Timer");
         timer = dataObject.GetComponent<Timer>();
         startTime = timer.getTime();
+        // Sound
+        dataObject = GameObject.Find("background camera");
+        sound = dataObject.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -39,8 +47,12 @@ public class CarrotBehavior : MonoBehaviour
     void OnMouseDown()
     {
         localData.playerData[localData.currentPlayer].score += localData.carrotScoreWorth;
+        
         localData.playerData[localData.currentPlayer].carrotCount++;
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0); // Sound
+        Debug.Log("Sound should of played");
         Destroy(this.gameObject);
+        
         Instantiate(pointsGainedObject, transform.position, Quaternion.identity);
 
     }
