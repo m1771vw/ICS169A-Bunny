@@ -20,8 +20,6 @@ public class LocalUIinGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        score.text = "Score:" + localData.playerData[localData.currentPlayer].score.ToString();
     }
     public void BackButtonPress()
     {
