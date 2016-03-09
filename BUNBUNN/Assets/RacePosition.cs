@@ -12,6 +12,7 @@ public class RacePosition : MonoBehaviour {
     public float speed = 1.0F;
     private float startTime;
     private float journeyLength;
+    private bool lerpOn = true;
 
     // Use this for initialization
     void Start () {
@@ -71,30 +72,33 @@ public class RacePosition : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        
         float distCovered = (Time.time - startTime) * speed;
         float fracJourney = distCovered / journeyLength;
         //transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
-
-        //lerp it
-        if (localData.playerData[localData.getPreviousPlayer()].color == "White")
+        if (lerpOn == true)
         {
-            Player1.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
-        }
-        else if (localData.playerData[localData.getPreviousPlayer()].color == "Red")
-        {
-            Player2.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
-        }
-        else if (localData.playerData[localData.getPreviousPlayer()].color == "Yellow")
-        {
-            Player3.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
-        }
-        else if (localData.playerData[localData.getPreviousPlayer()].color == "Blue")
-        {
-            Player4.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
-        }
-        else if (localData.playerData[localData.getPreviousPlayer()].color == "Gray")
-        {
-            Player5.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+            //lerp it
+            if (localData.playerData[localData.getPreviousPlayer()].color == "White")
+            {
+                Player1.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+            }
+            else if (localData.playerData[localData.getPreviousPlayer()].color == "Red")
+            {
+                Player2.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+            }
+            else if (localData.playerData[localData.getPreviousPlayer()].color == "Yellow")
+            {
+                Player3.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+            }
+            else if (localData.playerData[localData.getPreviousPlayer()].color == "Blue")
+            {
+                Player4.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+            }
+            else if (localData.playerData[localData.getPreviousPlayer()].color == "Gray")
+            {
+                Player5.transform.position = Vector3.Lerp(startPosition, endPosition, fracJourney);
+            }
         }
     }
     void setPreviousPlayerUpright()
@@ -133,43 +137,73 @@ public class RacePosition : MonoBehaviour {
     //used for click and pass feature
     public void setCurrentPlayerUprightAndPreviousDown()
     {
-        Vector3 upright = new Vector3();
-        upright.y = 0;
+        lerpOn = false;
         Vector3 down = new Vector3();
         down.y = -2;
+
         if (localData.playerData[localData.getPreviousPlayer()].color == "White")
         {
-            Player1.transform.position = upright;
-            Player1.transform.Rotate(0, 0, 180);
+            down.x = Player1.transform.position.x;
             Player1.transform.position = down;
             Player1.transform.Rotate(0, 0, 180);
+
         }
         else if (localData.playerData[localData.getPreviousPlayer()].color == "Red")
         {
-            Player2.transform.position = upright;
-            Player2.transform.Rotate(0, 0, 180);
+            down.x = Player2.transform.position.x;
             Player2.transform.position = down;
             Player2.transform.Rotate(0, 0, 180);
         }
         else if (localData.playerData[localData.getPreviousPlayer()].color == "Yellow")
         {
-            Player3.transform.position = upright;
-            Player3.transform.Rotate(0, 0, 180);
+            down.x = Player3.transform.position.x;
             Player3.transform.position = down;
             Player3.transform.Rotate(0, 0, 180);
         }
         else if (localData.playerData[localData.getPreviousPlayer()].color == "Blue")
         {
-            Player4.transform.position = upright;
-            Player4.transform.Rotate(0, 0, 180);
+            down.x = Player4.transform.position.x;
             Player4.transform.position = down;
             Player4.transform.Rotate(0, 0, 180);
         }
         else if (localData.playerData[localData.getPreviousPlayer()].color == "Gray")
         {
-            Player5.transform.position = upright;
-            Player5.transform.Rotate(0, 0, 180);
+            down.x = Player5.transform.position.x;
             Player5.transform.position = down;
+            Player5.transform.Rotate(0, 0, 180);
+        }
+
+        Vector3 upright = new Vector3();
+        upright.y = 0;
+        if (localData.playerData[localData.currentPlayer].color == "White")
+        {
+            upright.x = Player1.transform.position.x;
+            Player1.transform.position = upright;
+            Player1.transform.Rotate(0, 0, 180);
+
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Red")
+        {
+            upright.x = Player2.transform.position.x;
+            Player2.transform.position = upright;
+            Player2.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Yellow")
+        {
+            upright.x = Player3.transform.position.x;
+            Player3.transform.position = upright;
+            Player3.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Blue")
+        {
+            upright.x = Player4.transform.position.x;
+            Player4.transform.position = upright;
+            Player4.transform.Rotate(0, 0, 180);
+        }
+        else if (localData.playerData[localData.currentPlayer].color == "Gray")
+        {
+            upright.x = Player5.transform.position.x;
+            Player5.transform.position = upright;
             Player5.transform.Rotate(0, 0, 180);
         }
     }

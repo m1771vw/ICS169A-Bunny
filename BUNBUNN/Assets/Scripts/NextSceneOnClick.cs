@@ -23,9 +23,12 @@ public class NextSceneOnClick : MonoBehaviour {
         {
             SceneManager.LoadScene("LocalMultiplayer");
         }
-        GameObject.Find("ClickToPlay").GetComponent<Image>().sprite =
-            GameObject.Find("newImage").GetComponent<Image>().sprite;
-        GameObject.Find("Camera").GetComponent<RacePosition>().setCurrentPlayerUprightAndPreviousDown();
+        else if(clicked == false)
+        { 
+            GameObject.Find("ClickToPlay").GetComponent<Image>().sprite =
+                GameObject.Find("newImage").GetComponent<Image>().sprite;
+            GameObject.Find("Camera").GetComponent<RacePosition>().setCurrentPlayerUprightAndPreviousDown();
+        }
         clicked = true;   
     }
 
