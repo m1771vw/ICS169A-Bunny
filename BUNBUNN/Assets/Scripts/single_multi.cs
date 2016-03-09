@@ -15,6 +15,10 @@ public class single_multi : MonoBehaviour
     public GameObject Quit;
     PlayGames Gplay = new PlayGames();
 
+    // Sound code
+    private GameObject dataObject;
+    private SoundManager sound;
+
     void Start()
     {
         PlayGamesPlatform.Activate();
@@ -24,6 +28,10 @@ public class single_multi : MonoBehaviour
         PlaySingle = PlaySingle.GetComponent<Button>();
         //PlayMulti = PlayMulti.GetComponent<Button>();
         quitMenu.enabled = false;
+
+        // Sound Code
+        dataObject = GameObject.Find("background camera");
+        sound = dataObject.GetComponent<SoundManager>();
 
     }
 
@@ -44,6 +52,9 @@ public class single_multi : MonoBehaviour
         SinglePlayer.SetActive(false);
         //Multi.SetActive(false);
         Quit.SetActive(false);
+        // Sound
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0); 
+
     }
 
     public void NoPress()
@@ -55,13 +66,20 @@ public class single_multi : MonoBehaviour
         SinglePlayer.SetActive(true);
         Multi.SetActive(true);
         Quit.SetActive(true);
+        // Sound
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
+
     }
     public void TutorialPress()
     {
+        // Sound
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
         SceneManager.LoadScene("TutorialRemade");
     }
     public void SinglePress()
     {
+        // Sound
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
         SceneManager.LoadScene("PlayerNamingAndNumber");
     }
     public void MultiPress()
@@ -70,6 +88,8 @@ public class single_multi : MonoBehaviour
     }
     public void ExitGame()
     {
+        // Sound
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
         Application.Quit();
     }
 }
