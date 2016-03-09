@@ -14,7 +14,7 @@ public class NextSceneOnClick : MonoBehaviour {
     PlayGames Gplay = new PlayGames();
     // Use this for initialization
     void Start () {
-        timer = (float.Parse(countdown.text));
+        timer = 0.0f;
 	}
  
     public void OnMouseDown()

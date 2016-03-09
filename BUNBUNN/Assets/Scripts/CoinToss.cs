@@ -20,7 +20,13 @@ public class CoinToss : MonoBehaviour {
             // choose feudal
             Debug.Log(" than 5, trying to launch Western");
             GameObject.Find("western").GetComponent<SpriteRenderer>().sprite = GameObject.Find("feudal").GetComponent<SpriteRenderer>().sprite;
+            GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(9);
             // GameObject.Find("backgroundcamera").GetComponent<AudioSource>().clip.Equals
+        }
+        else
+        {
+            GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(8);
+            
         }
 
     }
