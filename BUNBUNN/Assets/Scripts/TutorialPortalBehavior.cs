@@ -15,6 +15,7 @@ public class TutorialPortalBehavior : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        GameObject.Find("background camera").GetComponent<SoundManager>().PlaySound(0);
         Destroy(col.gameObject);
     }
 }
